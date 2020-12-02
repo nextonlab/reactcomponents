@@ -1,0 +1,6 @@
+
+[readpool.storage]
+use-unified-pool = true
+
+[readpool.coprocessor]
+use-unified-pool = true

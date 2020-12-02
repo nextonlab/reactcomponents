@@ -1,3 +1,4 @@
+
 ## TiKV config template
 ##  Human-readable big numbers:
 ##   File size(based on byte): KB, MB, GB, TB, PB
@@ -40,45 +41,45 @@
 ## (Experimental) Whether to use a single thread pool to serve all the read requests. If it is
 ## set to `true`, the `readpool.storage` and `readpool.coprocessor` sections will be invalid and
 ## be ignored automatically.
-# unify-read-pool = true
+unify-read-pool = true
 
 # Configurations for the single thread pool serving read requests.
 # It only takes effect when `unify-read-pool` is `true`.
 [readpool.unified]
 ## The minimal working thread count of the thread pool.
-# min-thread-count = 1
+min-thread-count = 1
 
 ## The maximum working thread count of the thread pool.
 ## The default value is max(4, LOGICAL_CPU_NUM * 0.8).
-# max-thread-count = 8
+max-thread-count = 8
 
 ## Size of the stack for each thread in the thread pool.
-# stack-size = "10MB"
+stack-size = "10MB"
 
 ## Max running tasks of each worker, reject if exceeded.
-# max-tasks-per-worker = 2000
+max-tasks-per-worker = 2000
 
 [readpool.storage]
 ## Size of the thread pool for high-priority operations.
-# high-concurrency = 4
+high-concurrency = 8
 
 ## Size of the thread pool for normal-priority operations.
-# normal-concurrency = 4
+normal-concurrency = 8
 
 ## Size of the thread pool for low-priority operations.
-# low-concurrency = 4
+low-concurrency = 8
 
 ## Max running high-priority operations of each worker, reject if exceeded.
-# max-tasks-per-worker-high = 2000
+max-tasks-per-worker-high = 4000
 
 ## Max running normal-priority operations of each worker, reject if exceeded.
-# max-tasks-per-worker-normal = 2000
+max-tasks-per-worker-normal = 4000
 
 ## Max running low-priority operations of each worker, reject if exceeded.
-# max-tasks-per-worker-low = 2000
+max-tasks-per-worker-low = 4000
 
 ## Size of the stack for each thread in the thread pool.
-# stack-size = "10MB"
+stack-size = "10MB"
 
 [readpool.coprocessor]
 ## Most read requests from TiDB are sent to the coprocessor of TiKV. high/normal/low-concurrency is
@@ -88,13 +89,13 @@
 ## set these config to 30 in heavy read scenarios.
 ## If CPU_NUM > 8, the default thread pool size for coprocessors is set to CPU_NUM * 0.8.
 
-# high-concurrency = 8
-# normal-concurrency = 8
-# low-concurrency = 8
-# max-tasks-per-worker-high = 2000
-# max-tasks-per-worker-normal = 2000
-# max-tasks-per-worker-low = 2000
-# stack-size = "10MB"
+high-concurrency = 8
+normal-concurrency = 8
+low-concurrency = 8
+max-tasks-per-worker-high = 2000
+max-tasks-per-worker-normal = 2000
+max-tasks-per-worker-low = 2000
+stack-size = "10MB"
 
 [server]
 ## Listening address.
@@ -118,7 +119,7 @@
 # grpc-compression-type = "none"
 
 ## Size of the thread pool for the gRPC server.
-# grpc-concurrency = 4
+grpc-concurrency = 8
 
 ## The number of max concurrent streams/requests on a client connection.
 # grpc-concurrent-stream = 1024
@@ -173,11 +174,6 @@
 # labels = {}
 
 [storage]
-# Enable rawkv TTL
-# refer to https://docs.google.com/document/d/1ygf8TdEMb_w4l6pyo3pHCdNV-JZ21koPfu1PHrP7Wc4/edit#heading=h.lw441vb2011
-enable-ttl = true
-ttl-check-poll-interval = "24h"
-
 ## The path to RocksDB directory.
 # data-dir = "/tmp/tikv/store"
 
@@ -190,7 +186,7 @@ ttl-check-poll-interval = "24h"
 ## It should be less than total CPU cores. When there are frequent write operations, set it to a
 ## higher value. More specifically, you can run `top -H -p tikv-pid` to check whether the threads
 ## named `sched-worker-pool` are busy.
-# scheduler-worker-pool-size = 4
+scheduler-worker-pool-size = 8
 
 ## When the pending write bytes exceeds this threshold, the "scheduler too busy" error is displayed.
 # scheduler-pending-write-threshold = "100MB"
@@ -331,20 +327,20 @@ ttl-check-poll-interval = "24h"
 # cleanup-import-sst-interval = "10m"
 
 ## Use how many threads to handle log apply
-# apply-pool-size = 2
+apply-pool-size = 4
 
 ## Use how many threads to handle raft messages
-# store-pool-size = 2
+store-pool-size = 4
 
 [coprocessor]
 ## When it is set to `true`, TiKV will try to split a Region with table prefix if that Region
 ## crosses tables.
 ## It is recommended to turn off this option if there will be a large number of tables created.
-# split-region-on-table = false
+split-region-on-table = true
 
 ## One split check produces several split keys in batch. This config limits the number of produced
 ## split keys in one batch.
-# batch-split-limit = 10
+batch-split-limit = 20
 
 ## When Region [a,e) size exceeds `region_max_size`, it will be split into several Regions [a,b),
 ## [b,c), [c,d), [d,e) and the size of [a,b), [b,c), [c,d) will be `region_split_size` (or a
@@ -771,7 +767,7 @@ ttl-check-poll-interval = "24h"
 
 [import]
 ## Number of threads to handle RPC requests.
-# num-threads = 8
+num-threads = 16
 
 ## Stream channel window size, stream will be blocked on channel full.
 # stream-channel-window = 128
@@ -801,4 +797,3 @@ ttl-check-poll-interval = "24h"
 ## Max bytes that GC worker can write to rocksdb in one second.
 ## If it is set to 0, there is no limit.
 # max-write-bytes-per-sec = "0"
-

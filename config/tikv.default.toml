@@ -1,3 +1,4 @@
+
 ## TiKV config template
 ##  Human-readable big numbers:
 ##   File size(based on byte): KB, MB, GB, TB, PB
@@ -173,11 +174,6 @@
 # labels = {}
 
 [storage]
-# Enable rawkv TTL
-# refer to https://docs.google.com/document/d/1ygf8TdEMb_w4l6pyo3pHCdNV-JZ21koPfu1PHrP7Wc4/edit#heading=h.lw441vb2011
-enable-ttl = true
-ttl-check-poll-interval = "24h"
-
 ## The path to RocksDB directory.
 # data-dir = "/tmp/tikv/store"
 
@@ -801,4 +797,3 @@ ttl-check-poll-interval = "24h"
 ## Max bytes that GC worker can write to rocksdb in one second.
 ## If it is set to 0, there is no limit.
 # max-write-bytes-per-sec = "0"
-

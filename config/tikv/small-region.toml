@@ -1,0 +1,5 @@
+
+
+[coprocessor]
+region-split-size = "1MB"
+region-max-size = "2MB"
