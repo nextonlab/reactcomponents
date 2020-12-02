@@ -36,4 +36,11 @@ package tidb
 //	}
 //	checker := NewSequentialChecker()
 //	ok, err := checker.Check(nil, good)
-//	if !ok || er
+//	if !ok || err != nil {
+//		t.Fatalf("good must pass check")
+//	}
+//	ok, err = checker.Check(nil, bad)
+//	if ok {
+//		t.Fatalf("bad must fail check")
+//	}
+//}
