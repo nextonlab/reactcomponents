@@ -58,4 +58,33 @@ func (NoopDB) SetUp(ctx context.Context, nodes []cluster.Node, node cluster.Node
 }
 
 // TearDown tears down the database.
-func (NoopDB) TearD
+func (NoopDB) TearDown(ctx context.Context, nodes []cluster.Node, node cluster.Node) error {
+	return nil
+}
+
+// Name returns the unique name for the database
+func (NoopDB) Name() string {
+	return ""
+}
+
+var dbs = map[string]DB{}
+
+// RegisterDB registers db. Not thread-safe
+func RegisterDB(db DB) {
+	name := db.Name()
+	_, ok := dbs[name]
+	if ok {
+		panic(fmt.Sprintf("db %s is already registered", name))
+	}
+
+	dbs[name] = db
+}
+
+// GetDB gets the registered db.
+func GetDB(name string) DB {
+	return dbs[name]
+}
+
+func init() {
+	RegisterDB(NoopDB{})
+}
