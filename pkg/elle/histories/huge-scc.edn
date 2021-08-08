@@ -16980,4 +16980,154 @@
 {:type :fail, :f :txn, :value [[:r 81 nil] [:r 86 nil] [:r 86 nil] [:r 81 nil]], :process 157, :time 85253171231, :error :noleader, :index 16979}
 {:type :invoke, :f :txn, :value [[:r 86 nil]], :process 172, :time 85265380734, :index 16980}
 {:type :fail, :f :txn, :value [[:r 86 nil]], :process 172, :time 85265836592, :error :noleader, :index 16981}
-{:type :invoke, :f :txn, :value [[:r 87 nil] [:r 86 nil] [:append 81 107]], :process 144, :time
+{:type :invoke, :f :txn, :value [[:r 87 nil] [:r 86 nil] [:append 81 107]], :process 144, :time 85282754760, :index 16982}
+{:type :fail, :f :txn, :value [[:r 87 nil] [:r 86 nil] [:append 81 107]], :process 144, :time 85284097571, :error :nocluster, :index 16983}
+{:type :invoke, :f :txn, :value [[:append 86 100] [:append 86 101]], :process 167, :time 85290078557, :index 16984}
+{:type :fail, :f :txn, :value [[:append 86 100] [:append 86 101]], :process 167, :time 85291266762, :error :noleader, :index 16985}
+{:type :invoke, :f :txn, :value [[:r 87 nil] [:append 88 1] [:append 86 102]], :process 129, :time 85291590564, :index 16986}
+{:type :invoke, :f :txn, :value [[:append 87 5]], :process 163, :time 85292320666, :index 16987}
+{:type :invoke, :f :txn, :value [[:append 86 103] [:append 87 6] [:r 86 nil]], :process 157, :time 85292417637, :index 16988}
+{:type :fail, :f :txn, :value [[:append 87 5]], :process 163, :time 85292819382, :error :noleader, :index 16989}
+{:type :fail, :f :txn, :value [[:r 87 nil] [:append 88 1] [:append 86 102]], :process 129, :time 85292841439, :error :nocluster, :index 16990}
+{:type :fail, :f :txn, :value [[:append 86 103] [:append 87 6] [:r 86 nil]], :process 157, :time 85293561131, :error :noleader, :index 16991}
+{:type :invoke, :f :txn, :value [[:r 86 nil] [:append 86 104] [:append 86 105]], :process 134, :time 85294250222, :index 16992}
+{:type :fail, :f :txn, :value [[:r 86 nil] [:append 86 104] [:append 86 105]], :process 134, :time 85295343521, :error :nocluster, :index 16993}
+{:type :invoke, :f :txn, :value [[:append 86 106]], :process 133, :time 85303031811, :index 16994}
+{:type :fail, :f :txn, :value [[:append 86 106]], :process 133, :time 85303504852, :error :noleader, :index 16995}
+{:type :invoke, :f :txn, :value [[:r 85 nil]], :process 145, :time 80311660804, :index 16996}
+{:type :fail, :f :txn, :value [[:r 85 nil]], :process 145, :time 85314325891, :error [:no-client "Connection refused"], :index 16997}
+{:type :invoke, :f :txn, :value [[:r 86 nil]], :process 162, :time 85324445205, :index 16998}
+{:type :fail, :f :txn, :value [[:r 86 nil]], :process 162, :time 85324935455, :error :noleader, :index 16999}
+{:type :invoke, :f :txn, :value [[:r 87 nil]], :process 149, :time 85324903338, :index 17000}
+{:type :fail, :f :txn, :value [[:r 87 nil]], :process 149, :time 85325411184, :error :nocluster, :index 17001}
+{:type :invoke, :f :txn, :value [[:append 86 107] [:append 81 108] [:append 86 108]], :process 177, :time 85332333137, :index 17002}
+{:type :fail, :f :txn, :value [[:append 86 107] [:append 81 108] [:append 86 108]], :process 177, :time 85333578275, :error :noleader, :index 17003}
+{:type :invoke, :f :txn, :value [[:r 88 nil]], :process 128, :time 85333832580, :index 17004}
+{:type :fail, :f :txn, :value [[:r 88 nil]], :process 128, :time 85334231630, :error :noleader, :index 17005}
+{:type :invoke, :f :txn, :value [[:append 86 109] [:r 86 nil]], :process 128, :time 85341457708, :index 17006}
+{:type :fail, :f :txn, :value [[:append 86 109] [:r 86 nil]], :process 128, :time 85342530625, :error :noleader, :index 17007}
+{:type :invoke, :f :txn, :value [[:append 86 110] [:append 86 111] [:append 86 112] [:r 87 nil]], :process 128, :time 85346748771, :index 17008}
+{:type :fail, :f :txn, :value [[:append 86 110] [:append 86 111] [:append 86 112] [:r 87 nil]], :process 128, :time 85348025684, :error :noleader, :index 17009}
+{:type :invoke, :f :txn, :value [[:append 86 113]], :process 139, :time 85355861062, :index 17010}
+{:type :fail, :f :txn, :value [[:append 86 113]], :process 139, :time 85356358018, :error :nocluster, :index 17011}
+{:type :invoke, :f :txn, :value [[:append 87 7] [:r 86 nil] [:append 86 114]], :process 157, :time 85358808325, :index 17012}
+{:type :fail, :f :txn, :value [[:append 87 7] [:r 86 nil] [:append 86 114]], :process 157, :time 85360051492, :error :noleader, :index 17013}
+{:type :invoke, :f :txn, :value [[:append 86 115]], :process 167, :time 85371505177, :index 17014}
+{:type :fail, :f :txn, :value [[:append 86 115]], :process 167, :time 85371984753, :error :noleader, :index 17015}
+{:type :invoke, :f :txn, :value [[:r 86 nil]], :process 129, :time 85373059597, :index 17016}
+{:type :fail, :f :txn, :value [[:r 86 nil]], :process 129, :time 85373539558, :error :nocluster, :index 17017}
+{:type :invoke, :f :txn, :value [[:r 86 nil]], :process 163, :time 85379017236, :index 17018}
+{:type :fail, :f :txn, :value [[:r 86 nil]], :process 163, :time 85379455502, :error :noleader, :index 17019}
+{:type :invoke, :f :txn, :value [[:r 86 nil] [:append 86 116]], :process 173, :time 85381149987, :index 17020}
+{:type :fail, :f :txn, :value [[:r 86 nil] [:append 86 116]], :process 173, :time 85382231606, :error :noleader, :index 17021}
+{:type :invoke, :f :txn, :value [[:r 86 nil] [:r 86 nil] [:r 86 nil]], :process 157, :time 85387287037, :index 17022}
+{:type :fail, :f :txn, :value [[:r 86 nil] [:r 86 nil] [:r 86 nil]], :process 157, :time 85388637826, :error :noleader, :index 17023}
+{:type :invoke, :f :txn, :value [[:append 81 109] [:r 81 nil] [:r 87 nil]], :process 149, :time 85390635133, :index 17024}
+{:type :fail, :f :txn, :value [[:append 81 109] [:r 81 nil] [:r 87 nil]], :process 149, :time 85391848484, :error :nocluster, :index 17025}
+{:type :invoke, :f :txn, :value [[:append 81 110] [:r 87 nil]], :process 143, :time 85396408892, :index 17026}
+{:type :fail, :f :txn, :value [[:append 81 110] [:r 87 nil]], :process 143, :time 85397497936, :error :noleader, :index 17027}
+{:type :invoke, :f :txn, :value [[:append 86 117] [:append 87 8]], :process 134, :time 85398549457, :index 17028}
+{:type :invoke, :f :txn, :value [[:append 86 118] [:append 86 119]], :process 172, :time 85399043060, :index 17029}
+{:type :fail, :f :txn, :value [[:append 86 117] [:append 87 8]], :process 134, :time 85399686414, :error :nocluster, :index 17030}
+{:type :fail, :f :txn, :value [[:append 86 118] [:append 86 119]], :process 172, :time 85400128325, :error :noleader, :index 17031}
+{:type :invoke, :f :txn, :value [[:append 81 111]], :process 133, :time 85407707810, :index 17032}
+{:type :fail, :f :txn, :value [[:append 81 111]], :process 133, :time 85408175685, :error :noleader, :index 17033}
+{:type :invoke, :f :txn, :value [[:append 81 112] [:append 81 113]], :process 144, :time 85410336879, :index 17034}
+{:type :fail, :f :txn, :value [[:append 81 112] [:append 81 113]], :process 144, :time 85411415363, :error :nocluster, :index 17035}
+{:type :invoke, :f :txn, :value [[:r 87 nil]], :process 149, :time 85415083176, :index 17036}
+{:type :fail, :f :txn, :value [[:r 87 nil]], :process 149, :time 85415502896, :error :nocluster, :index 17037}
+{:type :invoke, :f :txn, :value [[:r 86 nil] [:append 87 9]], :process 139, :time 85432586972, :index 17038}
+{:type :fail, :f :txn, :value [[:r 86 nil] [:append 87 9]], :process 139, :time 85433709168, :error :nocluster, :index 17039}
+{:type :invoke, :f :txn, :value [[:r 86 nil]], :process 172, :time 85440352166, :index 17040}
+{:type :fail, :f :txn, :value [[:r 86 nil]], :process 172, :time 85440816555, :error :noleader, :index 17041}
+{:type :invoke, :f :txn, :value [[:append 87 10] [:append 86 122]], :process 129, :time 85450747480, :index 17042}
+{:type :fail, :f :txn, :value [[:append 87 10] [:append 86 122]], :process 129, :time 85451859878, :error :nocluster, :index 17043}
+{:type :invoke, :f :txn, :value [[:r 81 nil]], :process 144, :time 85454639103, :index 17044}
+{:type :fail, :f :txn, :value [[:r 81 nil]], :process 144, :time 85455112755, :error :nocluster, :index 17045}
+{:type :invoke, :f :txn, :value [[:append 87 11] [:append 88 2] [:append 81 114] [:r 88 nil]], :process 133, :time 85484404191, :index 17046}
+{:type :fail, :f :txn, :value [[:append 87 11] [:append 88 2] [:append 81 114] [:r 88 nil]], :process 133, :time 85485777761, :error :noleader, :index 17047}
+{:type :invoke, :f :txn, :value [[:append 88 3]], :process 162, :time 85490179478, :index 17048}
+{:type :fail, :f :txn, :value [[:append 88 3]], :process 162, :time 85490699454, :error :noleader, :index 17049}
+{:type :invoke, :f :txn, :value [[:append 81 115] [:append 81 116] [:append 87 12]], :process 139, :time 85492946902, :index 17050}
+{:type :fail, :f :txn, :value [[:append 81 115] [:append 81 116] [:append 87 12]], :process 139, :time 85494215569, :error :nocluster, :index 17051}
+{:type :info, :f :join, :value "n3", :process :nemesis, :time 85501219329, :index 17052}
+{:type :invoke, :f :txn, :value [[:r 86 nil] [:append 81 117]], :process 144, :time 85508335198, :index 17053}
+{:type :invoke, :f :txn, :value [[:append 86 123] [:append 70 72] [:r 86 nil]], :process 173, :time 85508470529, :index 17054}
+{:type :invoke, :f :txn, :value [[:append 86 124] [:r 87 nil]], :process 167, :time 85509243476, :index 17055}
+{:type :fail, :f :txn, :value [[:r 86 nil] [:append 81 117]], :process 144, :time 85509717386, :error :nocluster, :index 17056}
+{:type :fail, :f :txn, :value [[:append 86 123] [:append 70 72] [:r 86 nil]], :process 173, :time 85509902423, :error :noleader, :index 17057}
+{:type :fail, :f :txn, :value [[:append 86 124] [:r 87 nil]], :process 167, :time 85510390308, :error :noleader, :index 17058}
+{:type :invoke, :f :txn, :value [[:append 86 125] [:r 86 nil]], :process 177, :time 85513811929, :index 17059}
+{:type :fail, :f :txn, :value [[:append 86 125] [:r 86 nil]], :process 177, :time 85514999358, :error :noleader, :index 17060}
+{:type :invoke, :f :txn, :value [[:r 63 nil] [:r 81 nil] [:append 87 13] [:r 86 nil]], :process 173, :time 85523223016, :index 17061}
+{:type :fail, :f :txn, :value [[:r 63 nil] [:r 81 nil] [:append 87 13] [:r 86 nil]], :process 173, :time 85524982838, :error :noleader, :index 17062}
+{:type :invoke, :f :txn, :value [[:r 86 nil] [:append 87 14]], :process 157, :time 85525893849, :index 17063}
+{:type :fail, :f :txn, :value [[:r 86 nil] [:append 87 14]], :process 157, :time 85527029812, :error :noleader, :index 17064}
+{:type :invoke, :f :txn, :value [[:r 87 nil]], :process 134, :time 85527889189, :index 17065}
+{:type :invoke, :f :txn, :value [[:r 88 nil]], :process 128, :time 85528251325, :index 17066}
+{:type :fail, :f :txn, :value [[:r 87 nil]], :process 134, :time 85528347235, :error :nocluster, :index 17067}
+{:type :fail, :f :txn, :value [[:r 88 nil]], :process 128, :time 85528657961, :error :noleader, :index 17068}
+{:type :invoke, :f :txn, :value [[:append 86 126] [:append 87 15] [:append 86 127]], :process 167, :time 85549645770, :index 17069}
+{:type :invoke, :f :txn, :value [[:append 86 128]], :process 139, :time 85550461504, :index 17070}
+{:type :fail, :f :txn, :value [[:append 86 126] [:append 87 15] [:append 86 127]], :process 167, :time 85550890785, :error :noleader, :index 17071}
+{:type :fail, :f :txn, :value [[:append 86 128]], :process 139, :time 85551020963, :error :nocluster, :index 17072}
+{:type :invoke, :f :txn, :value [[:r 87 nil]], :process 143, :time 85554722400, :index 17073}
+{:type :fail, :f :txn, :value [[:r 87 nil]], :process 143, :time 85555159668, :error :noleader, :index 17074}
+{:type :invoke, :f :txn, :value [[:r 86 nil]], :process 163, :time 85556676263, :index 17075}
+{:type :fail, :f :txn, :value [[:r 86 nil]], :process 163, :time 85557199165, :error :noleader, :index 17076}
+{:type :invoke, :f :txn, :value [[:r 87 nil] [:append 89 1]], :process 133, :time 85572034264, :index 17077}
+{:type :fail, :f :txn, :value [[:r 87 nil] [:append 89 1]], :process 133, :time 85573089115, :error :noleader, :index 17078}
+{:type :invoke, :f :txn, :value [[:r 89 nil] [:append 89 2]], :process 143, :time 85591382365, :index 17079}
+{:type :fail, :f :txn, :value [[:r 89 nil] [:append 89 2]], :process 143, :time 85592435269, :error :noleader, :index 17080}
+{:type :invoke, :f :txn, :value [[:append 81 118] [:append 89 3] [:r 89 nil]], :process 149, :time 85596724822, :index 17081}
+{:type :fail, :f :txn, :value [[:append 81 118] [:append 89 3] [:r 89 nil]], :process 149, :time 85598033760, :error :nocluster, :index 17082}
+{:type :invoke, :f :txn, :value [[:r 89 nil]], :process 167, :time 85598106459, :index 17083}
+{:type :fail, :f :txn, :value [[:r 89 nil]], :process 167, :time 85598558999, :error :noleader, :index 17084}
+{:type :invoke, :f :txn, :value [[:r 87 nil] [:r 89 nil] [:append 81 119]], :process 157, :time 85618274895, :index 17085}
+{:type :fail, :f :txn, :value [[:r 87 nil] [:r 89 nil] [:append 81 119]], :process 157, :time 85619588708, :error :noleader, :index 17086}
+{:type :invoke, :f :txn, :value [[:r 89 nil] [:r 87 nil] [:append 88 4]], :process 134, :time 85619575725, :index 17087}
+{:type :invoke, :f :txn, :value [[:r 87 nil]], :process 172, :time 85620019637, :index 17088}
+{:type :fail, :f :txn, :value [[:r 87 nil]], :process 172, :time 85620471046, :error :noleader, :index 17089}
+{:type :fail, :f :txn, :value [[:r 89 nil] [:r 87 nil] [:append 88 4]], :process 134, :time 85620846891, :error :nocluster, :index 17090}
+{:type :invoke, :f :txn, :value [[:append 89 4]], :process 129, :time 85627150500, :index 17091}
+{:type :invoke, :f :txn, :value [[:append 89 5] [:r 88 nil]], :process 144, :time 85627948699, :index 17092}
+{:type :fail, :f :txn, :value [[:append 89 4]], :process 129, :time 85628087578, :error :nocluster, :index 17093}
+{:type :fail, :f :txn, :value [[:append 89 5] [:r 88 nil]], :process 144, :time 85629530040, :error :nocluster, :index 17094}
+{:type :invoke, :f :txn, :value [[:r 81 nil] [:r 87 nil] [:append 63 59] [:r 81 nil]], :process 139, :time 85635269034, :index 17095}
+{:type :fail, :f :txn, :value [[:r 81 nil] [:r 87 nil] [:append 63 59] [:r 81 nil]], :process 139, :time 85636693933, :error :nocluster, :index 17096}
+{:type :invoke, :f :txn, :value [[:append 87 16] [:append 70 73] [:r 89 nil] [:r 88 nil]], :process 149, :time 85645290271, :index 17097}
+{:type :fail, :f :txn, :value [[:append 87 16] [:append 70 73] [:r 89 nil] [:r 88 nil]], :process 149, :time 85646839271, :error :nocluster, :index 17098}
+{:type :invoke, :f :txn, :value [[:r 88 nil]], :process 173, :time 85654240627, :index 17099}
+{:type :fail, :f :txn, :value [[:r 88 nil]], :process 173, :time 85654731326, :error :noleader, :index 17100}
+{:type :invoke, :f :txn, :value [[:append 87 17] [:append 89 6] [:append 89 7]], :process 144, :time 85656785165, :index 17101}
+{:type :fail, :f :txn, :value [[:append 87 17] [:append 89 6] [:append 89 7]], :process 144, :time 85658125062, :error :nocluster, :index 17102}
+{:type :invoke, :f :txn, :value [[:append 87 18] [:r 87 nil]], :process 163, :time 85659433603, :index 17103}
+{:type :fail, :f :txn, :value [[:append 87 18] [:r 87 nil]], :process 163, :time 85660543167, :error :noleader, :index 17104}
+{:type :invoke, :f :txn, :value [[:r 89 nil] [:r 89 nil] [:append 87 19]], :process 149, :time 85661073942, :index 17105}
+{:type :fail, :f :txn, :value [[:r 89 nil] [:r 89 nil] [:append 87 19]], :process 149, :time 85662381986, :error :nocluster, :index 17106}
+{:type :invoke, :f :txn, :value [[:r 89 nil] [:append 87 20]], :process 167, :time 85663772939, :index 17107}
+{:type :fail, :f :txn, :value [[:r 89 nil] [:append 87 20]], :process 167, :time 85664974578, :error :noleader, :index 17108}
+{:type :invoke, :f :txn, :value [[:r 89 nil] [:r 87 nil] [:append 87 21]], :process 167, :time 85666192827, :index 17109}
+{:type :fail, :f :txn, :value [[:r 89 nil] [:r 87 nil] [:append 87 21]], :process 167, :time 85667436172, :error :noleader, :index 17110}
+{:type :invoke, :f :txn, :value [[:append 87 22] [:r 89 nil]], :process 139, :time 85667936190, :index 17111}
+{:type :fail, :f :txn, :value [[:append 87 22] [:r 89 nil]], :process 139, :time 85669001725, :error :nocluster, :index 17112}
+{:type :invoke, :f :txn, :value [[:append 89 8]], :process 162, :time 85677912801, :index 17113}
+{:type :fail, :f :txn, :value [[:append 89 8]], :process 162, :time 85678360708, :error :noleader, :index 17114}
+{:type :invoke, :f :txn, :value [[:append 88 5] [:append 89 9]], :process 172, :time 85682689868, :index 17115}
+{:type :fail, :f :txn, :value [[:append 88 5] [:append 89 9]], :process 172, :time 85683806919, :error :noleader, :index 17116}
+{:type :invoke, :f :txn, :value [[:r 89 nil] [:append 63 60] [:r 87 nil] [:append 81 120]], :process 129, :time 85686339290, :index 17117}
+{:type :fail, :f :txn, :value [[:r 89 nil] [:append 63 60] [:r 87 nil] [:append 81 120]], :process 129, :time 85687839128, :error :nocluster, :index 17118}
+{:type :invoke, :f :txn, :value [[:r 87 nil] [:r 87 nil] [:r 89 nil]], :process 143, :time 85696669227, :index 17119}
+{:type :fail, :f :txn, :value [[:r 87 nil] [:r 87 nil] [:r 89 nil]], :process 143, :time 85698035444, :error :noleader, :index 17120}
+{:type :invoke, :f :txn, :value [[:r 89 nil] [:r 87 nil]], :process 163, :time 85698770482, :index 17121}
+{:type :fail, :f :txn, :value [[:r 89 nil] [:r 87 nil]], :process 163, :time 85699826067, :error :noleader, :index 17122}
+{:type :invoke, :f :txn, :value [[:append 87 23] [:append 88 6] [:append 87 24]], :process 129, :time 85704088569, :index 17123}
+{:type :fail, :f :txn, :value [[:append 87 23] [:append 88 6] [:append 87 24]], :process 129, :time 85705547143, :error :nocluster, :index 17124}
+{:type :invoke, :f :txn, :value [[:r 87 nil]], :process 177, :time 85711244249, :index 17125}
+{:type :fail, :f :txn, :value [[:r 87 nil]], :process 177, :time 85711716621, :error :noleader, :index 17126}
+{:type :info, :f :join, :value "n3", :process :nemesis, :time 85720148468, :error "indeterminate: throw+: {:type :can't-join-in-this-state, :node \"n3\", :members {\"n1\" {:state :removing}, \"n5\" {:state :live}, \"n4\" {:state :live}, \"n2\" {:state :removing, :remover #object[clojure.core$future_call$reify__8439 0x19406276 {:status :pending, :val nil}]}, \"n3\" {:state :removing}}}", :index 17127}
+{:type :invoke, :f :txn, :value [[:append 89 10]], :process 128, :time 85720875225, :index 17128}
+{:type :fail, :f :txn, :value [[:append 89 10]], :process 128, :time 85721310857, :error :noleader, :index 17129}
+{:type :invoke, :f :txn, :value [[:r 81 nil] [:append 81 121]], :process 133, :time 85736325976, :index 17130}
+{:type :fail, :f :txn, :value [[:r 81 nil] [:append 81 121]], :process 133, :time 85737429236, :error :noleader, :index 17131}
+{:type :invoke, :f :txn, :value [[:append 89 11]], :proce
