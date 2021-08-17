@@ -18154,4 +18154,143 @@
 {:type :fail, :f :txn, :value [[:r 90 nil] [:append 92 39] [:append 93 94]], :process 144, :time 89107817322, :error :nocluster, :index 18153}
 {:type :invoke, :f :txn, :value [[:r 90 nil] [:r 88 nil] [:append 92 40]], :process 149, :time 89108242828, :index 18154}
 {:type :fail, :f :txn, :value [[:r 90 nil] [:r 88 nil] [:append 92 40]], :process 149, :time 89109621170, :error :nocluster, :index 18155}
-{:type 
+{:type :invoke, :f :txn, :value [[:r 93 nil]], :process 163, :time 89112072920, :index 18156}
+{:type :invoke, :f :txn, :value [[:r 88 nil] [:r 93 nil] [:r 93 nil] [:r 92 nil]], :process 139, :time 89112383216, :index 18157}
+{:type :fail, :f :txn, :value [[:r 93 nil]], :process 163, :time 89112547794, :error :noleader, :index 18158}
+{:type :fail, :f :txn, :value [[:r 88 nil] [:r 93 nil] [:r 93 nil] [:r 92 nil]], :process 139, :time 89113811966, :error :nocluster, :index 18159}
+{:type :invoke, :f :txn, :value [[:r 88 nil] [:r 93 nil] [:r 93 nil] [:append 93 95]], :process 162, :time 89117121093, :index 18160}
+{:type :fail, :f :txn, :value [[:r 88 nil] [:r 93 nil] [:r 93 nil] [:append 93 95]], :process 162, :time 89118465660, :error :noleader, :index 18161}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:append 88 51]], :process 129, :time 89124142414, :index 18162}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:append 88 51]], :process 129, :time 89125430940, :error :nocluster, :index 18163}
+{:type :invoke, :f :txn, :value [[:append 90 63] [:append 93 96] [:r 93 nil]], :process 167, :time 89129334742, :index 18164}
+{:type :fail, :f :txn, :value [[:append 90 63] [:append 93 96] [:r 93 nil]], :process 167, :time 89130592503, :error :noleader, :index 18165}
+{:type :invoke, :f :txn, :value [[:append 93 98]], :process 173, :time 89142268175, :index 18166}
+{:type :fail, :f :txn, :value [[:append 93 98]], :process 173, :time 89142686756, :error :noleader, :index 18167}
+{:type :invoke, :f :txn, :value [[:r 90 nil] [:r 93 nil]], :process 149, :time 89147895986, :index 18168}
+{:type :fail, :f :txn, :value [[:r 90 nil] [:r 93 nil]], :process 149, :time 89149641251, :error :nocluster, :index 18169}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:r 90 nil] [:r 92 nil]], :process 172, :time 89152349723, :index 18170}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:r 90 nil] [:r 92 nil]], :process 172, :time 89153555698, :error :noleader, :index 18171}
+{:type :info, :f :kill, :value :all, :process :nemesis, :time 89158417493, :index 18172}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:append 93 99] [:r 92 nil]], :process 177, :time 89164946509, :index 18173}
+{:type :invoke, :f :txn, :value [[:append 92 43] [:r 93 nil] [:r 90 nil]], :process 139, :time 89165132779, :index 18174}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:append 93 99] [:r 92 nil]], :process 177, :time 89166187131, :error :noleader, :index 18175}
+{:type :fail, :f :txn, :value [[:append 92 43] [:r 93 nil] [:r 90 nil]], :process 139, :time 89167445835, :error :nocluster, :index 18176}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:r 93 nil]], :process 162, :time 89174722526, :index 18177}
+{:type :info, :f :txn, :value [[:r 93 nil] [:r 93 nil]], :process 162, :time 89175154513, :error [:socket "Broken pipe"], :index 18178}
+{:type :invoke, :f :txn, :value [[:r 90 nil]], :process 128, :time 89181345898, :index 18179}
+{:type :info, :f :txn, :value [[:r 90 nil]], :process 128, :time 89181668826, :error :eof, :index 18180}
+{:type :invoke, :f :txn, :value [[:r 63 nil] [:r 88 nil]], :process 157, :time 89194277496, :index 18181}
+{:type :info, :f :txn, :value [[:r 63 nil] [:r 88 nil]], :process 157, :time 89194752932, :error [:socket "Broken pipe"], :index 18182}
+{:type :invoke, :f :txn, :value [[:r 92 nil] [:r 93 nil]], :process 134, :time 89194556296, :index 18183}
+{:type :info, :f :txn, :value [[:r 92 nil] [:r 93 nil]], :process 134, :time 89195323089, :error [:socket "Broken pipe"], :index 18184}
+{:type :invoke, :f :txn, :value [[:append 90 65] [:append 93 100] [:append 93 101] [:append 90 66]], :process 143, :time 89209565015, :index 18185}
+{:type :info, :f :txn, :value [[:append 90 65] [:append 93 100] [:append 93 101] [:append 90 66]], :process 143, :time 89209968078, :error [:socket "Broken pipe"], :index 18186}
+{:type :invoke, :f :txn, :value [[:append 93 103] [:r 92 nil] [:r 92 nil]], :process 163, :time 89227769181, :index 18187}
+{:type :info, :f :txn, :value [[:append 93 103] [:r 92 nil] [:r 92 nil]], :process 163, :time 89228179050, :error [:socket "Broken pipe"], :index 18188}
+{:type :invoke, :f :txn, :value [[:append 90 67]], :process 149, :time 89237040011, :index 18189}
+{:type :info, :f :txn, :value [[:append 90 67]], :process 149, :time 89237685350, :error :eof, :index 18190}
+{:type :invoke, :f :txn, :value [[:r 92 nil] [:append 93 104]], :process 167, :time 89239841284, :index 18191}
+{:type :info, :f :txn, :value [[:r 92 nil] [:append 93 104]], :process 167, :time 89240248530, :error [:socket "Broken pipe"], :index 18192}
+{:type :invoke, :f :txn, :value [[:append 92 46]], :process 133, :time 89247233226, :index 18193}
+{:type :info, :f :txn, :value [[:append 92 46]], :process 133, :time 89247539049, :error :eof, :index 18194}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:r 92 nil]], :process 144, :time 89248171326, :index 18195}
+{:type :info, :f :txn, :value [[:r 93 nil] [:r 92 nil]], :process 144, :time 89248756565, :error [:socket "Broken pipe"], :index 18196}
+{:type :invoke, :f :txn, :value [[:r 92 nil] [:append 93 105] [:append 93 106] [:r 92 nil]], :process 129, :time 89274688867, :index 18197}
+{:type :info, :f :txn, :value [[:r 92 nil] [:append 93 105] [:append 93 106] [:r 92 nil]], :process 129, :time 89275197529, :error [:socket "Broken pipe"], :index 18198}
+{:type :invoke, :f :txn, :value [[:r 93 nil]], :process 173, :time 89330908722, :index 18199}
+{:type :info, :f :txn, :value [[:r 93 nil]], :process 173, :time 89331252413, :error :eof, :index 18200}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:append 93 108] [:r 93 nil]], :process 177, :time 89336443763, :index 18201}
+{:type :info, :f :txn, :value [[:r 93 nil] [:append 93 108] [:r 93 nil]], :process 177, :time 89336867222, :error [:socket "Broken pipe"], :index 18202}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:r 93 nil]], :process 172, :time 89352813649, :index 18203}
+{:type :info, :f :txn, :value [[:r 93 nil] [:r 93 nil]], :process 172, :time 89353196496, :error [:socket "Broken pipe"], :index 18204}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:append 93 109] [:r 70 nil] [:append 92 48]], :process 139, :time 89357971058, :index 18205}
+{:type :info, :f :txn, :value [[:r 93 nil] [:append 93 109] [:r 70 nil] [:append 92 48]], :process 139, :time 89358717395, :error [:socket "Broken pipe"], :index 18206}
+{:type :invoke, :f :txn, :value [[:r 86 nil] [:append 81 104]], :process 130, :time 85171525023, :index 18207}
+{:type :fail, :f :txn, :value [[:r 86 nil] [:append 81 104]], :process 130, :time 90174615985, :error [:no-client "Connection refused"], :index 18208}
+{:type :invoke, :f :txn, :value [[:r 87 nil] [:r 81 nil] [:append 81 106] [:append 86 97]], :process 140, :time 85243274735, :index 18209}
+{:type :fail, :f :txn, :value [[:r 87 nil] [:r 81 nil] [:append 81 106] [:append 86 97]], :process 140, :time 90246131710, :error [:no-client "Connection refused"], :index 18210}
+{:type :invoke, :f :txn, :value [[:append 86 99] [:r 87 nil]], :process 135, :time 85263655343, :index 18211}
+{:type :fail, :f :txn, :value [[:append 86 99] [:r 87 nil]], :process 135, :time 90265774588, :error [:no-client "Connection refused"], :index 18212}
+{:type :invoke, :f :txn, :value [[:r 86 nil] [:r 86 nil]], :process 125, :time 85286654238, :index 18213}
+{:type :fail, :f :txn, :value [[:r 86 nil] [:r 86 nil]], :process 125, :time 90288856872, :error [:no-client "Connection refused"], :index 18214}
+{:type :invoke, :f :txn, :value [[:append 86 120] [:append 86 121]], :process 145, :time 85423562310, :index 18215}
+{:type :fail, :f :txn, :value [[:append 86 120] [:append 86 121]], :process 145, :time 90425806033, :error [:no-client "Connection refused"], :index 18216}
+{:type :info, :f :kill, :value {"n1" "", "n2" "", "n3" "", "n4" "", "n5" ""}, :process :nemesis, :time 91364506520, :index 18217}
+{:type :info, :f :start, :value :all, :process :nemesis, :time 92365188320, :index 18218}
+{:type :info, :f :start, :value {"n1" "", "n2" "", "n3" "", "n4" "", "n5" ""}, :process :nemesis, :time 92569403615, :index 18219}
+{:type :info, :f :leave, :value "n1", :process :nemesis, :time 93569922006, :index 18220}
+{:type :invoke, :f :txn, :value [[:append 90 59] [:append 93 69] [:r 93 nil]], :process 131, :time 88839625473, :index 18221}
+{:type :fail, :f :txn, :value [[:append 90 59] [:append 93 69] [:r 93 nil]], :process 131, :time 93843843890, :error [:no-client "Connection refused"], :index 18222}
+{:type :invoke, :f :txn, :value [[:append 92 51] [:append 93 120] [:append 93 121] [:r 93 nil]], :process 131, :time 93873404704, :index 18223}
+{:type :fail, :f :txn, :value [[:append 92 51] [:append 93 120] [:append 93 121] [:r 93 nil]], :process 131, :time 93876585158, :error :nocluster, :index 18224}
+{:type :info, :f :leave, :value ["n1" :no-primary-available], :process :nemesis, :time 93895622550, :index 18225}
+{:type :invoke, :f :txn, :value [[:append 90 61]], :process 126, :time 89033769129, :index 18226}
+{:type :fail, :f :txn, :value [[:append 90 61]], :process 126, :time 94036622335, :error [:no-client "Connection refused"], :index 18227}
+{:type :invoke, :f :txn, :value [[:append 92 52] [:r 93 nil] [:r 93 nil]], :process 131, :time 94064226034, :index 18228}
+{:type :fail, :f :txn, :value [[:append 92 52] [:r 93 nil] [:r 93 nil]], :process 131, :time 94066100127, :error :nocluster, :index 18229}
+{:type :invoke, :f :txn, :value [[:append 93 122] [:append 92 53]], :process 131, :time 94087482931, :index 18230}
+{:type :fail, :f :txn, :value [[:append 93 122] [:append 92 53]], :process 131, :time 94088763622, :error :nocluster, :index 18231}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:append 93 93] [:r 92 nil] [:append 70 90]], :process 136, :time 89092244029, :index 18232}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:append 93 93] [:r 92 nil] [:append 70 90]], :process 136, :time 94095155469, :error [:no-client "Connection refused"], :index 18233}
+{:type :invoke, :f :txn, :value [[:r 70 nil] [:r 88 nil] [:r 93 nil] [:append 92 38]], :process 146, :time 89092355437, :index 18234}
+{:type :fail, :f :txn, :value [[:r 70 nil] [:r 88 nil] [:r 93 nil] [:append 92 38]], :process 146, :time 94095597314, :error [:no-client "Connection refused"], :index 18235}
+{:type :invoke, :f :txn, :value [[:append 90 71] [:append 92 54] [:append 92 55]], :process 131, :time 94101034475, :index 18236}
+{:type :fail, :f :txn, :value [[:append 90 71] [:append 92 54] [:append 92 55]], :process 131, :time 94102464638, :error :nocluster, :index 18237}
+{:type :invoke, :f :txn, :value [[:append 92 41] [:append 93 97] [:r 92 nil] [:append 92 42]], :process 141, :time 89135950121, :index 18238}
+{:type :fail, :f :txn, :value [[:append 92 41] [:append 93 97] [:r 92 nil] [:append 92 42]], :process 141, :time 94138346449, :error [:no-client "Connection refused"], :index 18239}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:r 93 nil] [:r 93 nil] [:append 90 64]], :process 153, :time 89184168478, :index 18240}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:r 93 nil] [:r 93 nil] [:append 90 64]], :process 153, :time 94186656287, :error [:no-client "Connection refused"], :index 18241}
+{:type :invoke, :f :txn, :value [[:r 90 nil] [:r 92 nil] [:append 93 123] [:append 93 124]], :process 146, :time 94188910925, :index 18242}
+{:type :fail, :f :txn, :value [[:r 90 nil] [:r 92 nil] [:append 93 123] [:append 93 124]], :process 146, :time 94191169865, :error :nocluster, :index 18243}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:append 93 102]], :process 168, :time 89214594088, :index 18244}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:append 93 102]], :process 168, :time 94217015901, :error [:no-client "Connection refused"], :index 18245}
+{:type :invoke, :f :txn, :value [[:append 88 52] [:r 93 nil] [:append 92 44] [:append 92 45]], :process 159, :time 89217605313, :index 18246}
+{:type :fail, :f :txn, :value [[:append 88 52] [:r 93 nil] [:append 92 44] [:append 92 45]], :process 159, :time 94220532098, :error [:no-client "Connection refused"], :index 18247}
+{:type :invoke, :f :txn, :value [[:append 92 56] [:append 5 75]], :process 168, :time 94223293578, :index 18248}
+{:type :fail, :f :txn, :value [[:append 92 56] [:append 5 75]], :process 168, :time 94224941674, :error :noleader, :index 18249}
+{:type :invoke, :f :txn, :value [[:r 90 nil] [:append 92 57] [:r 90 nil]], :process 126, :time 94228941688, :index 18250}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:r 90 nil] [:r 92 nil] [:append 88 53]], :process 187, :time 89227851810, :index 18251}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:r 90 nil] [:r 92 nil] [:append 88 53]], :process 187, :time 94230287151, :error [:no-client "Connection refused"], :index 18252}
+{:type :fail, :f :txn, :value [[:r 90 nil] [:append 92 57] [:r 90 nil]], :process 126, :time 94230612146, :error :nocluster, :index 18253}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:r 93 nil] [:r 92 nil] [:append 92 58]], :process 131, :time 94230784699, :index 18254}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:r 93 nil] [:r 92 nil] [:append 92 58]], :process 131, :time 94232359582, :error :nocluster, :index 18255}
+{:type :invoke, :f :txn, :value [[:append 92 59] [:r 93 nil]], :process 187, :time 94233568263, :index 18256}
+{:type :fail, :f :txn, :value [[:append 92 59] [:r 93 nil]], :process 187, :time 94235095835, :error :noleader, :index 18257}
+{:type :invoke, :f :txn, :value [[:r 93 nil]], :process 136, :time 94239467105, :index 18258}
+{:type :fail, :f :txn, :value [[:r 93 nil]], :process 136, :time 94240329302, :error :nocluster, :index 18259}
+{:type :invoke, :f :txn, :value [[:r 70 nil] [:r 92 nil] [:append 93 125]], :process 168, :time 94245186204, :index 18260}
+{:type :fail, :f :txn, :value [[:r 70 nil] [:r 92 nil] [:append 93 125]], :process 168, :time 94246480186, :error :noleader, :index 18261}
+{:type :invoke, :f :txn, :value [[:append 88 54] [:r 93 nil]], :process 146, :time 94256522998, :index 18262}
+{:type :fail, :f :txn, :value [[:append 88 54] [:r 93 nil]], :process 146, :time 94258061180, :error :nocluster, :index 18263}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:r 92 nil] [:r 93 nil]], :process 182, :time 89262507021, :index 18264}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:r 92 nil] [:r 93 nil]], :process 182, :time 94265040308, :error [:no-client "Connection refused"], :index 18265}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:r 92 nil] [:append 92 60]], :process 168, :time 94269745754, :index 18266}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:r 92 nil] [:append 92 60]], :process 168, :time 94271062301, :error :noleader, :index 18267}
+{:type :invoke, :f :txn, :value [[:r 92 nil] [:append 92 61] [:append 93 126] [:r 93 nil]], :process 153, :time 94279943765, :index 18268}
+{:type :invoke, :f :txn, :value [[:append 92 47] [:append 93 107]], :process 174, :time 89277866076, :index 18269}
+{:type :fail, :f :txn, :value [[:append 92 47] [:append 93 107]], :process 174, :time 94280518726, :error [:no-client "Connection refused"], :index 18270}
+{:type :fail, :f :txn, :value [[:r 92 nil] [:append 92 61] [:append 93 126] [:r 93 nil]], :process 153, :time 94281747232, :error :noleader, :index 18271}
+{:type :invoke, :f :txn, :value [[:append 93 127] [:append 70 91] [:r 92 nil] [:append 90 72]], :process 141, :time 94294639235, :index 18272}
+{:type :invoke, :f :txn, :value [[:r 93 nil] [:append 93 128]], :process 159, :time 94295800161, :index 18273}
+{:type :fail, :f :txn, :value [[:append 93 127] [:append 70 91] [:r 92 nil] [:append 90 72]], :process 141, :time 94296415476, :error :nocluster, :index 18274}
+{:type :fail, :f :txn, :value [[:r 93 nil] [:append 93 128]], :process 159, :time 94297341055, :error :nocluster, :index 18275}
+{:type :invoke, :f :txn, :value [[:append 94 1] [:r 92 nil]], :process 146, :time 94323485767, :index 18276}
+{:type :invoke, :f :txn, :value [[:append 90 73] [:append 92 62] [:append 94 2]], :process 126, :time 94323904035, :index 18277}
+{:type :fail, :f :txn, :value [[:append 94 1] [:r 92 nil]], :process 146, :time 94324964745, :error :nocluster, :index 18278}
+{:type :fail, :f :txn, :value [[:append 90 73] [:append 92 62] [:append 94 2]], :process 126, :time 94325555176, :error :nocluster, :index 18279}
+{:type :invoke, :f :txn, :value [[:append 90 74] [:r 94 nil] [:append 92 63]], :process 187, :time 94332348179, :index 18280}
+{:type :fail, :f :txn, :value [[:append 90 74] [:r 94 nil] [:append 92 63]], :process 187, :time 94333718338, :error :noleader, :index 18281}
+{:type :invoke, :f :txn, :value [[:r 92 nil] [:r 93 nil]], :process 198, :time 89334151738, :index 18282}
+{:type :fail, :f :txn, :value [[:r 92 nil] [:r 93 nil]], :process 198, :time 94336732944, :error [:no-client "Connection refused"], :index 18283}
+{:type :invoke, :f :txn, :value [[:append 88 55] [:append 94 3]], :process 168, :time 94337313534, :index 18284}
+{:type :fail, :f :txn, :value [[:append 88 55] [:append 94 3]], :process 168, :time 94338411966, :error :noleader, :index 18285}
+{:type :invoke, :f :txn, :value [[:r 92 nil]], :process 174, :time 94345787432, :index 18286}
+{:type :fail, :f :txn, :value [[:r 92 nil]], :process 174, :time 94346554532, :error :nocluster, :index 18287}
+{:type :invoke, :f :txn, :value [[:r 92 nil] [:r 94 nil] [:append 5 76]], :process 182, :time 94347334513, :index 18288}
+{:type :fail, :f :txn, :value [[:r 92 nil] [:r 94 nil] [:append 5 76]], :process 182, :time 94348870078, :error :noleader, :index 18289}
+{:type :invoke, :f :txn, :value [[:append 94 4] [:r 90 nil] [:append 94 5]], :process 126, :time 94356865291, :index 18290}
+{:type :fail, :f :txn, :value [[:append 94 4] [:r 90 nil] [:append 94 5]], :process 126, :time 94358668109, :error :nocluster, :index 18291}
+{:type :invoke, :f :txn, :value [[:r 94 nil] [:append 94 6] [:append 94 7] [:append 4 45]], :process 187, :time 94358974477, :index 18292}
+{:type :fail, :f :txn, :value [[:r 94 nil] [:append 94 6] [:append 94 7] [:append 4 45]], :process 187, :time 94360438555, :error :noleader, :index 18293}
+{:type :invoke, :f :txn, :value [[:append 92 49] [:r 92 nil] [:append 90 68]], :process 202, :time 89362925722, :index 18294}
+{:type :fail, :f :txn, :value [[:append 92 49] [:r 92 nil] [:append 90 68]], :process 202, :time 94365628402, :error [:no-client "Connection refused"], :index 
