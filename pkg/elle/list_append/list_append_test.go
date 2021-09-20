@@ -1019,4 +1019,89 @@ func TestGNonadjacent(t *testing.T) {
 						0,
 						0,
 					)}, {RWExplainResult(
-	
+						"x",
+						initMagicNumber,
+						core.MopValueType(1),
+						1,
+						0,
+					)}},
+					Typ: "G-nonadjacent",
+				},
+			},
+		},
+		Not: []string{"strong-session-snapshot-isolation", "serializable"},
+	}, got)
+
+}
+
+func TestCheck(t *testing.T) {
+	var history = core.History{
+		core.Op{Type: core.OpTypeOk,
+			Value: &[]core.Mop{
+				core.Append(
+					"x",
+					1,
+				),
+				core.Read(
+					"y",
+					[]int{1},
+				),
+			}},
+		core.Op{Type: core.OpTypeOk,
+			Value: &[]core.Mop{
+				core.Append(
+					"x",
+					2,
+				),
+				core.Append(
+					"y",
+					1,
+				)}},
+		core.Op{Type: core.OpTypeOk,
+			Value: &[]core.Mop{
+				core.Read(
+					"x",
+					[]int{1, 2},
+				)}},
+	}
+
+	result := Check(txn.Opts{
+		ConsistencyModels: []core.ConsistencyModelName{"serializable"},
+	}, history)
+
+	_ = result
+}
+
+func TestHugeScc(t *testing.T) {
+	content, err := ioutil.ReadFile("../histories/huge-scc.edn")
+	if err != nil {
+		t.Fail()
+	}
+	history, err := core.ParseHistory(string(content))
+	if err != nil {
+		t.Fail()
+	}
+	// the shortest path we found isn't belong to any anomalies...
+	result := Check(txn.Opts{}, history)
+	_ = result
+}
+
+func check(opts txn.Opts, h core.History) txn.CheckResult {
+	result := Check(opts, h)
+	result.AlsoNot = nil
+	return result
+}
+
+func mustParseOp(opString string) core.Op {
+	op, err := core.ParseOp(opString)
+	if err != nil {
+		log.Fatalf("expect no error, got %v", err)
+	}
+	return op
+}
+
+func withIndex(op core.Op, index int) core.Op {
+	o := op
+	o.Index.Set(index)
+	return o
+}
