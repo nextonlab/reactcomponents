@@ -772,4 +772,19 @@ func Check(opts txn.Opts, history core.History, graphOpt GraphOption) txn.CheckR
 	var analyzer core.Analyzer = graph
 	additionalGraphs := txn.AdditionalGraphs(opts)
 	if len(additionalGraphs) != 0 {
-		analyzer = core.Combine(appe
+		analyzer = core.Combine(append([]core.Analyzer{analyzer}, additionalGraphs...)...)
+	}
+
+	checkResult := txn.Cycles(analyzer, history, graphOpt)
+	anomalies := checkResult.Anomalies
+	if len(g1a) != 0 {
+		anomalies["G1a"] = g1a
+	}
+	if len(g1b) != 0 {
+		anomalies["G1b"] = g1b
+	}
+	if len(internal) != 0 {
+		anomalies["internal"] = internal
+	}
+	return txn.ResultMap(opts, anomalies)
+}
