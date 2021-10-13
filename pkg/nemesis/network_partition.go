@@ -107,4 +107,49 @@ func (n networkPartition) Invoke(ctx context.Context, _ *cluster.Node, args ...i
 }
 
 func (n networkPartition) Recover(ctx context.Context, _ *cluster.Node, args ...interface{}) error {
-	name, onePart, anotherPart := extrac
+	name, onePart, anotherPart := extractArgs(args...)
+	log.Infof("unapply nemesis %s %s between %+v and %+v", core.NetworkPartition, name, onePart, anotherPart)
+	return n.cli.CancelNetChaos(&chaosv1alpha1.NetworkChaos{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      name,
+			Namespace: onePart[0].Namespace,
+		},
+		Spec: networkChaosSpecTemplate(onePart[0].Namespace,
+			anotherPart[0].Namespace, onePart, anotherPart),
+	})
+}
+
+func (n networkPartition) Name() string {
+	return string(core.NetworkPartition)
+}
+
+func extractArgs(args ...interface{}) (string, []cluster.Node, []cluster.Node) {
+	var name = args[0].(string)
+	var networkParts [][]cluster.Node
+	var onePart []cluster.Node
+	var anotherPart []cluster.Node
+
+	for _, arg := range args[1:] {
+		networkPart := arg.([]cluster.Node)
+		networkParts = append(networkParts, networkPart)
+	}
+
+	if len(networkParts) != 2 {
+		log.Fatalf("expect two network parts, got %+v", networkParts)
+	}
+	onePart = networkParts[0]
+	anotherPart = networkParts[1]
+	if len(onePart) < 1 || len(anotherPart) < 1 {
+		log.Fatalf("expect non-empty two parts, got %+v and %+v", onePart, anotherPart)
+	}
+	return name, onePart, anotherPart
+}
+
+func extractPodNames(nodes []cluster.Node) []string {
+	var podNames []string
+
+	for _, node := range nodes {
+		podNames = append(podNames, node.PodName)
+	}
+	return podNames
+}
