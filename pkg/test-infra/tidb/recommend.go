@@ -1,0 +1,79 @@
+// Copyright 2019 PingCAP, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package tidb
+
+import (
+	"fmt"
+
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/resource"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/utils/pointer"
+
+	"github.com/pingcap/tipocket/pkg/test-infra/fixture"
+	"github.com/pingcap/tipocket/pkg/test-infra/util"
+	"github.com/pingcap/tipocket/pkg/tidb-operator/apis/pingcap/v1alpha1"
+	"github.com/pingcap/tipocket/pkg/tidb-operator/util/config"
+)
+
+// Recommendation ...
+type Recommendation struct {
+	TidbCluster *v1alpha1.TidbCluster
+	TidbMonitor *v1alpha1.TidbMonitor
+}
+
+// EnablePump ...
+func (t *Recommendation) EnablePump(replicas int32) *Recommendation {
+	if t.TidbCluster.Spec.Pump == nil {
+		t.TidbCluster.Spec.Pump = &v1alpha1.PumpSpec{
+			Replicas:             replicas,
+			BaseImage:            "pingcap/tidb-binlog",
+			ResourceRequirements: fixture.Medium,
+		}
+	}
+	return t
+}
+
+// EnableTiFlash add TiFlash spec in TiDB cluster
+func (t *Recommendation) EnableTiFlash(clusterConfig fixture.TiDBClusterConfig) {
+	tag, fullImage, replicas := clusterConfig.ImageVersion, clusterConfig.TiFlashImage, clusterConfig.TiFlashReplicas
+	tiflashDataStorageClass := provideTiFlashStorageClassName(clusterConfig)
+	if t.TidbCluster.Spec.TiFlash == nil {
+		baseImage, version := util.BuildBaseImageAndVersion("tiflash", tag, fullImage)
+		t.TidbCluster.Spec.TiFlash = &v1alpha1.TiFlashSpec{
+			Replicas:         int32(replicas),
+			MaxFailoverCount: pointer.Int32Ptr(int32(0)),
+			BaseImage:        baseImage,
+			ComponentSpec: v1alpha1.ComponentSpec{
+				Version: &version,
+			},
+			StorageClaims: []v1alpha1.StorageClaim{
+				{
+					StorageClassName: &tiflashDataStorageClass,
+					Resources: fixture.WithStorage(corev1.ResourceRequirements{
+						Requests: corev1.ResourceList{
+							fixture.CPU:    resource.MustParse("1000m"),
+							fixture.Memory: resource.MustParse("8Gi"),
+						},
+						Limits: corev1.ResourceList{
+							fixture.CPU:    resource.MustParse("4000m"),
+							fixture.Memory: resource.MustParse("16Gi"),
+						},
+					}, "100Gi"),
+				},
+			},
+		}
+		tiflashCfg := v1alpha1.NewTiFlashConfig()
+		tiflashCfg.Common.Set("logger.level", "debug")
+		t.TidbCluster.Spec.TiFlash
