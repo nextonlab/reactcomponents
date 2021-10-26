@@ -240,3 +240,146 @@ type Interval struct {
 	// Optional: Defaults to 0
 	// +optional
 	Queries *int32 `json:"queries,omitempty" toml:"queries,omitempty"`
+	// Optional: Defaults to 0
+	// +optional
+	Errors *int32 `json:"errors,omitempty" toml:"errors,omitempty"`
+	// Optional: Defaults to 0
+	// +optional
+	ResultRows *int32 `json:"result_rows,omitempty" toml:"result_rows,omitempty"`
+	// Optional: Defaults to 0
+	// +optional
+	ReadRows *int32 `json:"read_rows,omitempty" toml:"read_rows,omitempty"`
+	// Optional: Defaults to 0
+	// +optional
+	ExecutionTime *int32 `json:"execution_time,omitempty" toml:"execution_time,omitempty"`
+}
+
+// FlashStatus is the configuration of [status] section.
+// +k8s:openapi-gen=false
+type FlashStatus struct {
+	// Optional: Defaults to 8234
+	// +optional
+	MetricsPort *int32 `json:"metrics_port,omitempty" toml:"metrics_port,omitempty"`
+}
+
+// FlashRaft is the configuration of [raft] section.
+// +k8s:openapi-gen=false
+type FlashRaft struct {
+	// +optional
+	PDAddr *string `json:"pd_addr,omitempty" toml:"pd_addr,omitempty"`
+	// Optional: Defaults to /data0/kvstore
+	// +optional
+	KVStorePath *string `json:"kvstore_path,omitempty" toml:"kvstore_path,omitempty"`
+	// Optional: Defaults to dt
+	// +optional
+	StorageEngine *string `json:"storage_engine,omitempty" toml:"storage_engine,omitempty"`
+}
+
+// FlashApplication is the configuration of [application] section.
+// +k8s:openapi-gen=false
+type FlashApplication struct {
+	// Optional: Defaults to true
+	// +optional
+	RunAsDaemon *bool `json:"runAsDaemon,omitempty" toml:"runAsDaemon,omitempty"`
+}
+
+// FlashLogger is the configuration of [logger] section.
+// +k8s:openapi-gen=true
+type FlashLogger struct {
+	// Optional: Defaults to /data0/logs/error.log
+	// +optional
+	ErrorLog *string `json:"errorlog,omitempty" toml:"errorlog,omitempty"`
+	// Optional: Defaults to 100M
+	// +optional
+	Size *string `json:"size,omitempty" toml:"size,omitempty"`
+	// Optional: Defaults to /data0/logs/server.log
+	// +optional
+	ServerLog *string `json:"log,omitempty" toml:"log,omitempty"`
+	// Optional: Defaults to information
+	// +optional
+	Level *string `json:"level,omitempty" toml:"level,omitempty"`
+	// Optional: Defaults to 10
+	// +optional
+	Count *int32 `json:"count,omitempty" toml:"count,omitempty"`
+}
+
+// Flash is the configuration of [flash] section.
+// +k8s:openapi-gen=true
+type Flash struct {
+	// +optional
+	// +k8s:openapi-gen=false
+	TiDBStatusAddr *string `json:"tidb_status_addr,omitempty" toml:"tidb_status_addr,omitempty"`
+	// +optional
+	// +k8s:openapi-gen=false
+	ServiceAddr *string `json:"service_addr,omitempty" toml:"service_addr,omitempty"`
+	// Optional: Defaults to 0.6
+	// +optional
+	OverlapThreshold *float64 `json:"overlap_threshold,omitempty" toml:"overlap_threshold,omitempty"`
+	// Optional: Defaults to 200
+	// +optional
+	CompactLogMinPeriod *int32 `json:"compact_log_min_period,omitempty" toml:"compact_log_min_period,omitempty"`
+	// +optional
+	FlashCluster *FlashCluster `json:"flash_cluster,omitempty" toml:"flash_cluster,omitempty"`
+	// +optional
+	FlashProxy *FlashProxy `json:"proxy,omitempty" toml:"proxy,omitempty"`
+}
+
+// FlashCluster is the configuration of [flash.flash_cluster] section.
+// +k8s:openapi-gen=true
+type FlashCluster struct {
+	// Optional: Defaults to /tiflash/flash_cluster_manager
+	// +optional
+	// +k8s:openapi-gen=false
+	ClusterManagerPath *string `json:"cluster_manager_path,omitempty" toml:"cluster_manager_path,omitempty"`
+	// Optional: Defaults to /data0/logs/flash_cluster_manager.log
+	// +optional
+	ClusterLog *string `json:"log,omitempty" toml:"log,omitempty"`
+	// Optional: Defaults to 20
+	// +optional
+	RefreshInterval *int32 `json:"refresh_interval,omitempty" toml:"refresh_interval,omitempty"`
+	// Optional: Defaults to 10
+	// +optional
+	UpdateRuleInterval *int32 `json:"update_rule_interval,omitempty" toml:"update_rule_interval,omitempty"`
+	// Optional: Defaults to 60
+	// +optional
+	MasterTTL *int32 `json:"master_ttl,omitempty" toml:"master_ttl,omitempty"`
+}
+
+// FlashProxy is the configuration of [flash.proxy] section.
+// +k8s:openapi-gen=true
+type FlashProxy struct {
+	// Optional: Defaults to 0.0.0.0:20170
+	// +optional
+	Addr *string `json:"addr,omitempty" toml:"addr,omitempty"`
+	// Optional: Defaults to {clusterName}-tiflash-POD_NUM.{clusterName}-tiflash-peer.{namespace}:20170
+	// +optional
+	AdvertiseAddr *string `json:"advertise-addr,omitempty" toml:"advertise-addr,omitempty"`
+	// Optional: Defaults to /data0/proxy
+	// +optional
+	DataDir *string `json:"data-dir,omitempty" toml:"data-dir,omitempty"`
+	// Optional: Defaults to /data0/proxy.toml
+	// +optional
+	Config *string `json:"config,omitempty" toml:"config,omitempty"`
+	// Optional: Defaults to /data0/logs/proxy.log
+	// +optional
+	LogFile *string `json:"log-file,omitempty" toml:"log-file,omitempty"`
+}
+
+// +k8s:openapi-gen=true
+type FlashSecurity struct {
+	// +k8s:openapi-gen=false
+	// Be set automatically by Operator
+	// +optional
+	CAPath *string `json:"ca_path,omitempty" toml:"ca_path,omitempty"`
+	// +k8s:openapi-gen=false
+	// Be set automatically by Operator
+	// +optional
+	CertPath *string `json:"cert_path,omitempty" toml:"cert_path,omitempty"`
+	// +k8s:openapi-gen=false
+	// Be set automatically by Operator
+	// +optional
+	KeyPath *string `json:"key_path,omitempty" toml:"key_path,omitempty"`
+	// CertAllowedCN is the Common Name that allowed
+	// +optional
+	CertAllowedCN []string `json:"cert_allowed_cn,omitempty" toml:"cert_allowed_cn,omitempty"`
+}
