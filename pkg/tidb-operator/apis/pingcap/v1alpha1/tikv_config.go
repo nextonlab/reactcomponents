@@ -402,4 +402,346 @@ type TiKVDbConfig struct {
 	// +optional
 	InfoLogKeepLogFileNum *int64 `json:"info-log-keep-log-file-num,omitempty" toml:"info-log-keep-log-file-num,omitempty"`
 	// +optional
-	InfoLogDir 
+	InfoLogDir *string `json:"info-log-dir,omitempty" toml:"info-log-dir,omitempty"`
+	// +optional
+	RateBytesPerSec *string `json:"rate-bytes-per-sec,omitempty" toml:"rate-bytes-per-sec,omitempty"`
+	// +optional
+	RateLimiterMode *int64 `json:"rate-limiter-mode,omitempty" toml:"rate-limiter-mode,omitempty"`
+	// +optional
+	AutoTuned *bool `json:"auto-tuned,omitempty" toml:"auto-tuned,omitempty"`
+	// +optional
+	BytesPerSync *string `json:"bytes-per-sync,omitempty" toml:"bytes-per-sync,omitempty"`
+	// +optional
+	WalBytesPerSync *string `json:"wal-bytes-per-sync,omitempty" toml:"wal-bytes-per-sync,omitempty"`
+	// +optional
+	// Optional: Defaults to 3
+	MaxSubCompactions *int64 `json:"max-sub-compactions,omitempty" toml:"max-sub-compactions,omitempty"`
+	// +optional
+	WritableFileMaxBufferSize *string `json:"writable-file-max-buffer-size,omitempty" toml:"writable-file-max-buffer-size,omitempty"`
+	// +optional
+	UseDirectIoForFlushAndCompaction *bool `json:"use-direct-io-for-flush-and-compaction,omitempty" toml:"use-direct-io-for-flush-and-compaction,omitempty"`
+	// +optional
+	EnablePipelinedWrite *bool `json:"enable-pipelined-write,omitempty" toml:"enable-pipelined-write,omitempty"`
+	// +optional
+	Defaultcf *TiKVCfConfig `json:"defaultcf,omitempty" toml:"defaultcf,omitempty"`
+	// +optional
+	Writecf *TiKVCfConfig `json:"writecf,omitempty" toml:"writecf,omitempty"`
+	// +optional
+	Lockcf *TiKVCfConfig `json:"lockcf,omitempty" toml:"lockcf,omitempty"`
+	// +optional
+	Raftcf *TiKVCfConfig `json:"raftcf,omitempty" toml:"raftcf,omitempty"`
+	// +optional
+	Titan *TiKVTitanDBConfig `json:"titan,omitempty" toml:"titan,omitempty"`
+}
+
+// TiKVCfConfig is the config of a cf
+// +k8s:openapi-gen=true
+type TiKVCfConfig struct {
+	// +optional
+	BlockSize *string `json:"block-size,omitempty" toml:"block-size,omitempty"`
+	// +optional
+	BlockCacheSize *string `json:"block-cache-size,omitempty" toml:"block-cache-size,omitempty"`
+	// +optional
+	DisableBlockCache *bool `json:"disable-block-cache,omitempty" toml:"disable-block-cache,omitempty"`
+	// +optional
+	CacheIndexAndFilterBlocks *bool `json:"cache-index-and-filter-blocks,omitempty" toml:"cache-index-and-filter-blocks,omitempty"`
+	// +optional
+	PinL0FilterAndIndexBlocks *bool `json:"pin-l0-filter-and-index-blocks,omitempty" toml:"pin-l0-filter-and-index-blocks,omitempty"`
+	// +optional
+	UseBloomFilter *bool `json:"use-bloom-filter,omitempty" toml:"use-bloom-filter,omitempty"`
+	// +optional
+	OptimizeFiltersForHits *bool `json:"optimize-filters-for-hits,omitempty" toml:"optimize-filters-for-hits,omitempty"`
+	// +optional
+	WholeKeyFiltering *bool `json:"whole-key-filtering,omitempty" toml:"whole-key-filtering,omitempty"`
+	// +optional
+	BloomFilterBitsPerKey *int64 `json:"bloom-filter-bits-per-key,omitempty" toml:"bloom-filter-bits-per-key,omitempty"`
+	// +optional
+	BlockBasedBloomFilter *bool `json:"block-based-bloom-filter,omitempty" toml:"block-based-bloom-filter,omitempty"`
+	// +optional
+	ReadAmpBytesPerBit *int64 `json:"read-amp-bytes-per-bit,omitempty" toml:"read-amp-bytes-per-bit,omitempty"`
+	// +optional
+	CompressionPerLevel []string `json:"compression-per-level,omitempty" toml:"compression-per-level,omitempty"`
+	// +optional
+	WriteBufferSize *string `json:"write-buffer-size,omitempty" toml:"write-buffer-size,omitempty"`
+	// +optional
+	MaxWriteBufferNumber *int64 `json:"max-write-buffer-number,omitempty" toml:"max-write-buffer-number,omitempty"`
+	// +optional
+	MinWriteBufferNumberToMerge *int64 `json:"min-write-buffer-number-to-merge,omitempty" toml:"min-write-buffer-number-to-merge,omitempty"`
+	// +optional
+	MaxBytesForLevelBase *string `json:"max-bytes-for-level-base,omitempty" toml:"max-bytes-for-level-base,omitempty"`
+	// +optional
+	TargetFileSizeBase *string `json:"target-file-size-base,omitempty" toml:"target-file-size-base,omitempty"`
+	// +optional
+	Level0FileNumCompactionTrigger *int64 `json:"level0-file-num-compaction-trigger,omitempty" toml:"level0-file-num-compaction-trigger,omitempty"`
+	// +optional
+	Level0SlowdownWritesTrigger *int64 `json:"level0-slowdown-writes-trigger,omitempty" toml:"level0-slowdown-writes-trigger,omitempty"`
+	// +optional
+	Level0StopWritesTrigger *int64 `json:"level0-stop-writes-trigger,omitempty" toml:"level0-stop-writes-trigger,omitempty"`
+	// +optional
+	MaxCompactionBytes *string `json:"max-compaction-bytes,omitempty" toml:"max-compaction-bytes,omitempty"`
+	// +optional
+	CompactionPri *int64 `json:"compaction-pri,omitempty" toml:"compaction-pri,omitempty"`
+	// +optional
+	DynamicLevelBytes *bool `json:"dynamic-level-bytes,omitempty" toml:"dynamic-level-bytes,omitempty"`
+	// +optional
+	NumLevels *int64 `json:"num-levels,omitempty" toml:"num-levels,omitempty"`
+	// +optional
+	MaxBytesForLevelMultiplier *int64 `json:"max-bytes-for-level-multiplier,omitempty" toml:"max-bytes-for-level-multiplier,omitempty"`
+	// +optional
+	CompactionStyle *int64 `json:"compaction-style,omitempty" toml:"compaction-style,omitempty"`
+	// +optional
+	DisableAutoCompactions *bool `json:"disable-auto-compactions,omitempty" toml:"disable-auto-compactions,omitempty"`
+	// +optional
+	SoftPendingCompactionBytesLimit *string `json:"soft-pending-compaction-bytes-limit,omitempty" toml:"soft-pending-compaction-bytes-limit,omitempty"`
+	// +optional
+	HardPendingCompactionBytesLimit *string `json:"hard-pending-compaction-bytes-limit,omitempty" toml:"hard-pending-compaction-bytes-limit,omitempty"`
+	// +optional
+	ForceConsistencyChecks *bool `json:"force-consistency-checks,omitempty" toml:"force-consistency-checks,omitempty"`
+	// +optional
+	PropSizeIndexDistance *int64 `json:"prop-size-index-distance,omitempty" toml:"prop-size-index-distance,omitempty"`
+	// +optional
+	PropKeysIndexDistance *int64 `json:"prop-keys-index-distance,omitempty" toml:"prop-keys-index-distance,omitempty"`
+	// +optional
+	EnableDoublySkiplist *bool `json:"enable-doubly-skiplist,omitempty" toml:"enable-doubly-skiplist,omitempty"`
+	// +optional
+	Titan *TiKVTitanCfConfig `json:"titan,omitempty" toml:"titan,omitempty"`
+}
+
+// TiKVTitanCfConfig is the titian config.
+// +k8s:openapi-gen=true
+type TiKVTitanCfConfig struct {
+	// +optional
+	MinBlobSize *string `json:"min-blob-size,omitempty" toml:"min-blob-size,omitempty"`
+	// +optional
+	BlobFileCompression *string `json:"blob-file-compression,omitempty" toml:"blob-file-compression,omitempty"`
+	// +optional
+	BlobCacheSize *string `json:"blob-cache-size,omitempty" toml:"blob-cache-size,omitempty"`
+	// +optional
+	MinGcBatchSize *string `json:"min-gc-batch-size,omitempty" toml:"min-gc-batch-size,omitempty"`
+	// +optional
+	MaxGcBatchSize *string `json:"max-gc-batch-size,omitempty" toml:"max-gc-batch-size,omitempty"`
+	// +optional
+	DiscardableRatio *float64 `json:"discardable-ratio,omitempty" toml:"discardable-ratio,omitempty"`
+	// +optional
+	SampleRatio *float64 `json:"sample-ratio,omitempty" toml:"sample-ratio,omitempty"`
+	// +optional
+	MergeSmallFileThreshold *string `json:"merge-small-file-threshold,omitempty" toml:"merge-small-file-threshold,omitempty"`
+	// +optional
+	BlobRunMode *string `json:"blob-run-mode,omitempty" toml:"blob-run-mode,omitempty"`
+	// optional
+	LevelMerge *bool `json:"level_merge,omitempty" toml:"level_merge,omitempty"`
+	// optional
+	GcMergeRewrite *bool `json:"gc-merge-rewrite,omitempty" toml:"gc-merge-rewrite,omitempty"`
+}
+
+// TiKVTitanDBConfig is the config a titian db.
+// +k8s:openapi-gen=true
+type TiKVTitanDBConfig struct {
+	// +optional
+	Enabled *bool `json:"enabled,omitempty" toml:"enabled,omitempty"`
+	// +optional
+	Dirname *string `json:"dirname,omitempty" toml:"dirname,omitempty"`
+	// +optional
+	DisableGc *bool `json:"disable-gc,omitempty" toml:"disable-gc,omitempty"`
+	// +optional
+	MaxBackgroundGc *int64 `json:"max-background-gc,omitempty" toml:"max-background-gc,omitempty"`
+	// The value of this field will be truncated to seconds.
+	// +optional
+	PurgeObsoleteFilesPeriod *string `json:"purge-obsolete-files-period,omitempty" toml:"purge-obsolete-files-period,omitempty"`
+}
+
+// TiKVStorageConfig is the config of storage
+// +k8s:openapi-gen=true
+type TiKVStorageConfig struct {
+	// +optional
+	MaxKeySize *int64 `json:"max-key-size,omitempty" toml:"max-key-size,omitempty"`
+	// Deprecated in v4.0.0
+	// +optional
+	SchedulerNotifyCapacity *int64 `json:"scheduler-notify-capacity,omitempty" toml:"scheduler-notify-capacity,omitempty"`
+	// +optional
+	// Optional: Defaults to 2048000
+	SchedulerConcurrency *int64 `json:"scheduler-concurrency,omitempty" toml:"scheduler-concurrency,omitempty"`
+	// +optional
+	// Optional: Defaults to 4
+	SchedulerWorkerPoolSize *int64 `json:"scheduler-worker-pool-size,omitempty" toml:"scheduler-worker-pool-size,omitempty"`
+	// +optional
+	// Optional: Defaults to 100MB
+	SchedulerPendingWriteThreshold *string `json:"scheduler-pending-write-threshold,omitempty" toml:"scheduler-pending-write-threshold,omitempty"`
+	// +optional
+	BlockCache *TiKVBlockCacheConfig `json:"block-cache,omitempty" toml:"block-cache,omitempty"`
+	// The size of the temporary file that preoccupies the extra space when
+	// TiKV is started. The name of temporary file is `space_placeholder_file`,
+	// located in the `storage.data-dir` directory. When TiKV runs out of disk
+	// space and cannot be started normally, you can delete this file as an
+	// emergency intervention and set it to `0MB`. Default value is 2GB.
+	// +optional
+	ReserveSpace *string `json:"reserve-space,omitempty" toml:"reserve-space,omitempty"`
+}
+
+// TiKVBlockCacheConfig is the config of a block cache
+// +k8s:openapi-gen=true
+type TiKVBlockCacheConfig struct {
+	// Optional: Defaults to true
+	// +optional
+	Shared *bool `json:"shared,omitempty" toml:"shared,omitempty"`
+	// +optional
+	Capacity *string `json:"capacity,omitempty" toml:"capacity,omitempty"`
+	// +optional
+	NumShardBits *int64 `json:"num-shard-bits,omitempty" toml:"num-shard-bits,omitempty"`
+	// +optional
+	StrictCapacityLimit *bool `json:"strict-capacity-limit,omitempty" toml:"strict-capacity-limit,omitempty"`
+	// +optional
+	HighPriPoolRatio *float64 `json:"high-pri-pool-ratio,omitempty" toml:"high-pri-pool-ratio,omitempty"`
+	// +optional
+	MemoryAllocator *string `json:"memory-allocator,omitempty" toml:"memory-allocator,omitempty"`
+}
+
+// TiKVServerConfig is the configuration of TiKV server.
+// +k8s:openapi-gen=true
+type TiKVServerConfig struct {
+	// Optional: Defaults to 1
+	// +optional
+	StatusThreadPoolSize *string `json:"status-thread-pool-size,omitempty" toml:"status-thread-pool-size,omitempty"`
+	// Optional: Defaults to 10485760
+	// +optional
+	MaxGrpcSendMsgLen *uint `json:"max-grpc-send-msg-len,omitempty" toml:"max-grpc-send-msg-len,omitempty"`
+	// Optional: Defaults to none
+	// +optional
+	GrpcCompressionType *string `json:"grpc-compression-type,omitempty" toml:"grpc-compression-type,omitempty"`
+	// Optional: Defaults to 4
+	// +optional
+	GrpcConcurrency *uint `json:"grpc-concurrency,omitempty" toml:"grpc-concurrency,omitempty"`
+	// Optional: Defaults to 1024
+	// +optional
+	GrpcConcurrentStream *uint `json:"grpc-concurrent-stream,omitempty" toml:"grpc-concurrent-stream,omitempty"`
+	// Optional: Defaults to 32G
+	// +optional
+	GrpcMemoryQuota *string `json:"grpc-memory-pool-quota,omitempty" toml:"grpc-memory-pool-quota,omitempty"`
+	// Optional: Defaults to 10
+	// +optional
+	GrpcRaftConnNum *uint `json:"grpc-raft-conn-num,omitempty" toml:"grpc-raft-conn-num,omitempty"`
+	// Optional: Defaults to 2MB
+	// +optional
+	GrpcStreamInitialWindowSize *string `json:"grpc-stream-initial-window-size,omitempty" toml:"grpc-stream-initial-window-size,omitempty"`
+	// Optional: Defaults to 10s
+	// +optional
+	GrpcKeepaliveTime *string `json:"grpc-keepalive-time,omitempty" toml:"grpc-keepalive-time,omitempty"`
+	// Optional: Defaults to 3s
+	// +optional
+	GrpcKeepaliveTimeout *string `json:"grpc-keepalive-timeout,omitempty" toml:"grpc-keepalive-timeout,omitempty"`
+	// Optional: Defaults to 32
+	// +optional
+	ConcurrentSendSnapLimit *uint `json:"concurrent-send-snap-limit,omitempty" toml:"concurrent-send-snap-limit,omitempty"`
+	// Optional: Defaults to 32
+	// +optional
+	ConcurrentRecvSnapLimit *uint `json:"concurrent-recv-snap-limit,omitempty" toml:"concurrent-recv-snap-limit,omitempty"`
+	// Optional: Defaults to 1000
+	// +optional
+	EndPointRecursionLimit *uint `json:"end-point-recursion-limit,omitempty" toml:"end-point-recursion-limit,omitempty"`
+	// +optional
+	EndPointStreamChannelSize *uint `json:"end-point-stream-channel-size,omitempty" toml:"end-point-stream-channel-size,omitempty"`
+	// +optional
+	EndPointBatchRowLimit *uint `json:"end-point-batch-row-limit,omitempty" toml:"end-point-batch-row-limit,omitempty"`
+	// +optional
+	EndPointStreamBatchRowLimit *uint `json:"end-point-stream-batch-row-limit,omitempty" toml:"end-point-stream-batch-row-limit,omitempty"`
+	// +optional
+	EndPointEnableBatchIfPossible *uint `json:"end-point-enable-batch-if-possible,omitempty" toml:"end-point-enable-batch-if-possible,omitempty"`
+	// +optional
+	EndPointRequestMaxHandleDuration *string `json:"end-point-request-max-handle-duration,omitempty" toml:"end-point-request-max-handle-duration,omitempty"`
+	// Optional: Defaults to 100MB
+	// +optional
+	SnapMaxWriteBytesPerSec *string `json:"snap-max-write-bytes-per-sec,omitempty" toml:"snap-max-write-bytes-per-sec,omitempty"`
+	// +optional
+	SnapMaxTotalSize *string `json:"snap-max-total-size,omitempty" toml:"snap-max-total-size,omitempty"`
+	// +optional
+	StatsConcurrency *uint `json:"stats-concurrency,omitempty" toml:"stats-concurrency,omitempty"`
+	// +optional
+	HeavyLoadThreshold *uint `json:"heavy-load-threshold,omitempty" toml:"heavy-load-threshold,omitempty"`
+	// Optional: Defaults to 60s
+	// +optional
+	HeavyLoadWaitDuration *string `json:"heavy-load-wait-duration,omitempty" toml:"heavy-load-wait-duration,omitempty"`
+	// +optional
+	Labels map[string]string `json:"labels,omitempty" toml:"labels,omitempty"`
+	// +optional
+	EnableRequestBatch *bool `json:"enable-request-batch,omitempty" toml:"enable-request-batch,omitempty"`
+	// +optional
+	RequestBatchEnableCrossCommand *bool `json:"request-batch-enable-cross-command,omitempty" toml:"request-batch-enable-cross-command,omitempty"`
+	// +optional
+	RequestBatchWaitDuration *string `json:"request-batch-wait-duration,omitempty" toml:"request-batch-wait-duration,omitempty"`
+}
+
+// TiKVRaftstoreConfig is the configuration of TiKV raftstore component.
+// +k8s:openapi-gen=true
+type TiKVRaftstoreConfig struct {
+	// true for high reliability, prevent data loss when power failure.
+	// Optional: Defaults to true
+	// +optional
+	SyncLog *bool `json:"sync-log,omitempty" toml:"sync-log,omitempty"`
+	// Optional: Defaults to true
+	// +optional
+	Prevote *bool `json:"prevote,omitempty" toml:"prevote,omitempty"`
+	// raft-base-tick-interval is a base tick interval (ms).
+	// +optional
+	RaftBaseTickInterval *string `json:"raft-base-tick-interval,omitempty" toml:"raft-base-tick-interval,omitempty"`
+	// +optional
+	RaftHeartbeatTicks *int64 `json:"raft-heartbeat-ticks,omitempty" toml:"raft-heartbeat-ticks,omitempty"`
+	// +optional
+	RaftElectionTimeoutTicks *int64 `json:"raft-election-timeout-ticks,omitempty" toml:"raft-election-timeout-ticks,omitempty"`
+	// When the entry exceed the max size, reject to propose it.
+	// Optional: Defaults to 8MB
+	// +optional
+	RaftEntryMaxSize *string `json:"raft-entry-max-size,omitempty" toml:"raft-entry-max-size,omitempty"`
+	// Limit the max size of each append message.
+	// Optional: Defaults to 1MB
+	// +optional
+	RaftMaxSizePerMsg *string `json:"raft-max-size-per-msg,omitempty" toml:"raft-max-size-per-msg,omitempty"`
+	// Limit the max number of in-flight append messages during optimistic
+	// replication phase.
+	// Optional: Defaults to 256
+	// +optional
+	RaftMaxInflightMsgs *int64 `json:"raft-max-inflight-msgs,omitempty" toml:"raft-max-inflight-msgs,omitempty"`
+	// Interval to gc unnecessary raft log (ms).
+	// Optional: Defaults to 10s
+	// +optional
+	RaftLogGCTickInterval *string `json:"raft-log-gc-tick-interval,omitempty" toml:"raft-log-gc-tick-interval,omitempty"`
+	// A threshold to gc stale raft log, must >= 1.
+	// Optional: Defaults to 50
+	// +optional
+	RaftLogGCThreshold *int64 `json:"raft-log-gc-threshold,omitempty" toml:"raft-log-gc-threshold,omitempty"`
+	// When entry count exceed this value, gc will be forced trigger.
+	// Optional: Defaults to 72000
+	// +optional
+	RaftLogGCCountLimit *int64 `json:"raft-log-gc-count-limit,omitempty" toml:"raft-log-gc-count-limit,omitempty"`
+	// When the approximate size of raft log entries exceed this value
+	// gc will be forced trigger.
+	// Optional: Defaults to 72MB
+	// +optional
+	RaftLogGCSizeLimit *string `json:"raft-log-gc-size-limit,omitempty" toml:"raft-log-gc-size-limit,omitempty"`
+	// When a peer is not responding for this time, leader will not keep entry cache for it.
+	// +optional
+	RaftEntryCacheLifeTime *string `json:"raft-entry-cache-life-time,omitempty" toml:"raft-entry-cache-life-time,omitempty"`
+	// When a peer is newly added, reject transferring leader to the peer for a while.
+	// +optional
+	RaftRejectTransferLeaderDuration *string `json:"raft-reject-transfer-leader-duration,omitempty" toml:"raft-reject-transfer-leader-duration,omitempty"`
+
+	// Interval (ms) to check region whether need to be split or not.
+	// Optional: Defaults to 10s
+	// +optional
+	SplitRegionCheckTickInterval *string `json:"split-region-check-tick-interval,omitempty" toml:"split-region-check-tick-interval,omitempty"`
+	/// When size change of region exceed the diff since last check, it
+	/// will be checked again whether it should be split.
+	// Optional: Defaults to 6MB
+	// +optional
+	RegionSplitCheckDiff *string `json:"region-split-check-diff,omitempty" toml:"region-split-check-diff,omitempty"`
+	/// Interval (ms) to check whether start compaction for a region.
+	// Optional: Defaults to 5m
+	// +optional
+	RegionCompactCheckInterval *string `json:"region-compact-check-interval,omitempty" toml:"region-compact-check-interval,omitempty"`
+	// delay time before deleting a stale peer
+	// Optional: Defaults to 10m
+	// +optional
+	CleanStalePeerDelay *string `json:"clean-stale-peer-delay,omitempty" toml:"clean-stale-peer-delay,omitempty"`
+	/// Number of regions for each time checking.
+	// Optional: Defaults to 100
+	// +optional
+	RegionCompactCheckStep *int64 `json:"region-compact-check-step,omitempty" toml:"region
