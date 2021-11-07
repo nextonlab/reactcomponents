@@ -744,4 +744,262 @@ type TiKVRaftstoreConfig struct {
 	/// Number of regions for each time checking.
 	// Optional: Defaults to 100
 	// +optional
-	RegionCompactCheckStep *int64 `json:"region-compact-check-step,omitempty" toml:"region
+	RegionCompactCheckStep *int64 `json:"region-compact-check-step,omitempty" toml:"region-compact-check-step,omitempty"`
+	/// Minimum number of tombstones to trigger manual compaction.
+	// Optional: Defaults to 10000
+	// +optional
+	RegionCompactMinTombstones *int64 `json:"region-compact-min-tombstones,omitempty" toml:"region-compact-min-tombstones,omitempty"`
+	/// Minimum percentage of tombstones to trigger manual compaction.
+	/// Should between 1 and 100.
+	// Optional: Defaults to 30
+	// +optional
+	RegionCompactTombstonesPercent *int64 `json:"region-compact-tombstones-percent,omitempty" toml:"region-compact-tombstones-percent,omitempty"`
+	// Optional: Defaults to 60s
+	// +optional
+	PdHeartbeatTickInterval *string `json:"pd-heartbeat-tick-interval,omitempty" toml:"pd-heartbeat-tick-interval,omitempty"`
+	// Optional: Defaults to 10s
+	// +optional
+	PdStoreHeartbeatTickInterval *string `json:"pd-store-heartbeat-tick-interval,omitempty" toml:"pd-store-heartbeat-tick-interval,omitempty"`
+	// +optional
+	SnapMgrGCTickInterval *string `json:"snap-mgr-gc-tick-interval,omitempty" toml:"snap-mgr-gc-tick-interval,omitempty"`
+	// +optional
+	SnapGCTimeout *string `json:"snap-gc-timeout,omitempty" toml:"snap-gc-timeout,omitempty"`
+	// +optional
+	// Optional: Defaults to 10m
+	LockCfCompactInterval *string `json:"lock-cf-compact-interval,omitempty" toml:"lock-cf-compact-interval,omitempty"`
+	// +optional
+	// Optional: Defaults to 256MB
+	LockCfCompactBytesThreshold *string `json:"lock-cf-compact-bytes-threshold,omitempty" toml:"lock-cf-compact-bytes-threshold,omitempty"`
+
+	// +optional
+	NotifyCapacity *int64 `json:"notify-capacity,omitempty" toml:"notify-capacity,omitempty"`
+	// +optional
+	MessagesPerTick *int64 `json:"messages-per-tick,omitempty" toml:"messages-per-tick,omitempty"`
+
+	/// When a peer is not active for max-peer-down-duration
+	/// the peer is considered to be down and is reported to PD.
+	// Optional: Defaults to 5m
+	// +optional
+	MaxPeerDownDuration *string `json:"max-peer-down-duration,omitempty" toml:"max-peer-down-duration,omitempty"`
+
+	/// If the leader of a peer is missing for longer than max-leader-missing-duration
+	/// the peer would ask pd to confirm whether it is valid in any region.
+	/// If the peer is stale and is not valid in any region, it will destroy itself.
+	// +optional
+	MaxLeaderMissingDuration *string `json:"max-leader-missing-duration,omitempty" toml:"max-leader-missing-duration,omitempty"`
+	/// Similar to the max-leader-missing-duration, instead it will log warnings and
+	/// try to alert monitoring systems, if there is any.
+	// +optional
+	AbnormalLeaderMissingDuration *string `json:"abnormal-leader-missing-duration,omitempty" toml:"abnormal-leader-missing-duration,omitempty"`
+	// +optional
+	PeerStaleStateCheckInterval *string `json:"peer-stale-state-check-interval,omitempty" toml:"peer-stale-state-check-interval,omitempty"`
+
+	// +optional
+	LeaderTransferMaxLogLag *int64 `json:"leader-transfer-max-log-lag,omitempty" toml:"leader-transfer-max-log-lag,omitempty"`
+
+	// +optional
+	SnapApplyBatchSize *string `json:"snap-apply-batch-size,omitempty" toml:"snap-apply-batch-size,omitempty"`
+
+	// Interval (ms) to check region whether the data is consistent.
+	// Optional: Defaults to 0
+	// +optional
+	ConsistencyCheckInterval *string `json:"consistency-check-interval,omitempty" toml:"consistency-check-interval,omitempty"`
+
+	// +optional
+	ReportRegionFlowInterval *string `json:"report-region-flow-interval,omitempty" toml:"report-region-flow-interval,omitempty"`
+
+	// The lease provided by a successfully proposed and applied entry.
+	// +optional
+	RaftStoreMaxLeaderLease *string `json:"raft-store-max-leader-lease,omitempty" toml:"raft-store-max-leader-lease,omitempty"`
+
+	// Right region derive origin region id when split.
+	// +optional
+	RightDeriveWhenSplit *bool `json:"right-derive-when-split,omitempty" toml:"right-derive-when-split,omitempty"`
+
+	// +optional
+	AllowRemoveLeader *bool `json:"allow-remove-leader,omitempty" toml:"allow-remove-leader,omitempty"`
+
+	/// Max log gap allowed to propose merge.
+	// +optional
+	MergeMaxLogGap *int64 `json:"merge-max-log-gap,omitempty" toml:"merge-max-log-gap,omitempty"`
+	/// Interval to re-propose merge.
+	// +optional
+	MergeCheckTickInterval *string `json:"merge-check-tick-interval,omitempty" toml:"merge-check-tick-interval,omitempty"`
+
+	// +optional
+	UseDeleteRange *bool `json:"use-delete-range,omitempty" toml:"use-delete-range,omitempty"`
+
+	// +optional
+	// Optional: Defaults to 10m
+	CleanupImportSstInterval *string `json:"cleanup-import-sst-interval,omitempty" toml:"cleanup-import-sst-interval,omitempty"`
+
+	// +optional
+	ApplyMaxBatchSize *int64 `json:"apply-max-batch-size,omitempty" toml:"apply-max-batch-size,omitempty"`
+	// Optional: Defaults to 2
+	// +optional
+	ApplyPoolSize *int64 `json:"apply-pool-size,omitempty" toml:"apply-pool-size,omitempty"`
+
+	// +optional
+	StoreMaxBatchSize *int64 `json:"store-max-batch-size,omitempty" toml:"store-max-batch-size,omitempty"`
+	// Optional: Defaults to 2
+	// +optional
+	StorePoolSize *int64 `json:"store-pool-size,omitempty" toml:"store-pool-size,omitempty"`
+	// Optional: Defaults to 3s
+	// +optional
+	StoreRescheduleDuration *string `json:"store-reschedule-duration,omitempty" toml:"store-reschedule-duration,omitempty"`
+	// Optional: Defaults to 500ms
+	// +optional
+	ApplyYieldDuration *string `json:"apply-yield-duration,omitempty" toml:"apply-yield-duration,omitempty"`
+	// +optional
+	HibernateRegions *bool `json:"hibernate-regions,omitempty" toml:"hibernate-regions,omitempty"`
+	// Optional: Defaults to false
+	// +optional
+	ApplyEarly *bool `json:"apply-early,omitempty" toml:"apply-early, omitempty"`
+	// Optional: Defaults to 0
+	// +optional
+	PerfLevel *int64 `json:"perf-level,omitempty" toml:"perf-level, omitempty"`
+	// Optional: Defaults to false
+	// +optional
+	DevAssert *bool `json:"dev-assert,omitempty" toml:"dev-assert, omitempty"`
+}
+
+// TiKVCoprocessorConfig is the configuration of TiKV Coprocessor component.
+// +k8s:openapi-gen=true
+type TiKVCoprocessorConfig struct {
+	// When it is set to `true`, TiKV will try to split a Region with table prefix if that Region
+	// crosses tables.
+	// It is recommended to turn off this option if there will be a large number of tables created.
+	// Optional: Defaults to false
+	// optional
+	SplitRegionOnTable *bool `json:"split-region-on-table,omitempty" toml:"split-region-on-table,omitempty"`
+
+	// One split check produces several split keys in batch. This config limits the number of produced
+	// split keys in one batch.
+	// optional
+	BatchSplitLimit *int64 `json:"batch-split-limit,omitempty" toml:"batch-split-limit,omitempty"`
+
+	// When Region [a,e) size exceeds `region-max-size`, it will be split into several Regions [a,b),
+	// [b,c), [c,d), [d,e) and the size of [a,b), [b,c), [c,d) will be `region-split-size` (or a
+	// little larger). See also: region-split-size
+	// Optional: Defaults to 144MB
+	// optional
+	RegionMaxSize *string `json:"region-max-size,omitempty" toml:"region-max-size,omitempty"`
+
+	// When Region [a,e) size exceeds `region-max-size`, it will be split into several Regions [a,b),
+	// [b,c), [c,d), [d,e) and the size of [a,b), [b,c), [c,d) will be `region-split-size` (or a
+	// little larger). See also: region-max-size
+	// Optional: Defaults to 96MB
+	// optional
+	RegionSplitSize *string `json:"region-split-size,omitempty" toml:"region-split-size,omitempty"`
+
+	// When the number of keys in Region [a,e) exceeds the `region-max-keys`, it will be split into
+	// several Regions [a,b), [b,c), [c,d), [d,e) and the number of keys in [a,b), [b,c), [c,d) will be
+	// `region-split-keys`. See also: region-split-keys
+	// Optional: Defaults to 1440000
+	// optional
+	RegionMaxKeys *int64 `json:"region-max-keys,omitempty" toml:"region-max-keys,omitempty"`
+
+	// When the number of keys in Region [a,e) exceeds the `region-max-keys`, it will be split into
+	// several Regions [a,b), [b,c), [c,d), [d,e) and the number of keys in [a,b), [b,c), [c,d) will be
+	// `region-split-keys`. See also: region-max-keys
+	// Optional: Defaults to 960000
+	// optional
+	RegionSplitKeys *int64 `json:"region-split-keys,omitempty" toml:"region-split-keys,omitempty"`
+}
+
+// +k8s:openapi-gen=true
+type TiKVEncryptionConfig struct {
+	// Encrypyion method, use data key encryption raw rocksdb data
+	// Possible values: plaintext, aes128-ctr, aes192-ctr, aes256-ctr
+	// Optional: Default to plaintext
+	// optional
+	Method *string `json:"data-encryption-method,omitempty" toml:"data-encryption-method,omitempty"`
+
+	// The frequency of datakey rotation, It managered by tikv
+	// Optional: default to 7d
+	// optional
+	DataKeyRotationPeriod *string `json:"data-key-rotation-period,omitempty" toml:"data-key-rotation-period,omitempty"`
+
+	// Master key config
+	MasterKey *TiKVMasterKeyConfig `json:"master-key,omitempty" toml:"master-key,omitempty"`
+
+	// Previous master key config
+	// It used in master key rotation, the data key should decryption by previous master key and  then encrypytion by new master key
+	PreviousMasterKey *TiKVMasterKeyConfig `json:"previous-master-key,omitempty" toml:"previoud-master-key,omitempty"`
+}
+
+// +k8s:openapi-gen=true
+type TiKVMasterKeyConfig struct {
+	// Use KMS encryption or use file encryption, possible values: kms, file
+	// If set to kms, kms MasterKeyKMSConfig should be filled, if set to file MasterKeyFileConfig should be filled
+	// optional
+	Type *string `json:"type,omitempty" toml:"type,omitempty"`
+
+	// Master key file config
+	// If the type set to file, this config should be filled
+	MasterKeyFileConfig `json:",inline"`
+
+	// Master key KMS config
+	// If the type set to kms, this config should be filled
+	MasterKeyKMSConfig `json:",inline"`
+}
+
+// +k8s:openapi-gen=true
+type MasterKeyFileConfig struct {
+	// Encrypyion method, use master key encryption data key
+	// Possible values: plaintext, aes128-ctr, aes192-ctr, aes256-ctr
+	// Optional: Default to plaintext
+	// optional
+	Method *string `json:"method,omitempty" toml:"method,omitempty"`
+
+	// Text file containing the key in hex form, end with '\n'
+	Path *string `json:"path" toml:"path"`
+}
+
+// +k8s:openapi-gen=true
+type MasterKeyKMSConfig struct {
+	// AWS CMK key-id it can be find in AWS Console or use aws cli
+	// This field is required
+	KeyID *string `json:"key-id" toml:"key-id"`
+
+	// AccessKey of AWS user, leave empty if using other authrization method
+	// optional
+	AccessKey *string `json:"access-key,omitempty" toml:"access-key,omitempty"`
+
+	// SecretKey of AWS user, leave empty if using other authrization method
+	// optional
+	SecretKey *string `json:"secret-access-key,omitempty" toml:"secret-access-key,omitempty"`
+
+	// Region of this KMS key
+	// Optional: Default to us-east-1
+	// optional
+	Region *string `json:"region,omitempty" toml:"region,omitempty"`
+
+	// Used for KMS compatible KMS, such as Ceph, minio, If use AWS, leave empty
+	// optional
+	Endpoint *string `json:"endpoint,omitempty" toml:"endpoint,omitempty"`
+}
+
+// +k8s:openapi-gen=true
+type TiKVPessimisticTxn struct {
+	// +optional
+	Enabled *bool `json:"enabled,omitempty" toml:"enabled,omitempty"`
+	// The default and maximum delay before responding to TiDB when pessimistic
+	// transactions encounter locks
+	// +optional
+	WaitForLockTimeout *string `json:"wait-for-lock-timeout,omitempty" toml:"wait-for-lock-timeout,omitempty"`
+	// If more than one transaction is waiting for the same lock, only the one with smallest
+	// start timestamp will be waked up immediately when the lock is released. Others will
+	// be waked up after `wake_up_delay_duration` to reduce contention and make the oldest
+	// one more likely acquires the lock.
+	// +optional
+	WakeUpDelayDuration *string `json:"wake-up-delay-duration,omitempty" toml:"wake-up-delay-duration,omitempty"`
+	// +optional
+	Pipelined *bool `json:"pipelined,omitempty" toml:"pipelined,omitempty"`
+}
+
+// +k8s:openapi-gen=true
+type TiKVBackupConfig struct {
+	// +optional
+	NumThreads *int64 `json:"num-threads,omitempty" toml:"num-threads,omitempty"`
+}
