@@ -60,4 +60,62 @@ package util
 //	tmpDir := fmt.Sprintf("/tmp/chaos/var_%d", time.Now().UnixNano())
 //	Mkdir(context.Background(), "n1", tmpDir)
 //	defer RemoveDir(context.Background(), "n1", tmpDir)
-/
+//
+//	cmd := "/bin/sleep"
+//	pidFile := path.Join(tmpDir, "sleep.pid")
+//	opts := NewDaemonOptions(tmpDir, pidFile)
+//	err := StartDaemon(context.Background(), "n1", opts, cmd, "100")
+//	if err != nil {
+//		t.Fatalf("start daemon failed %v", err)
+//	}
+//
+//	pidStr := parsePID(context.Background(), "n1", pidFile)
+//	if pidStr == "" {
+//		t.Fatal("must have a pid file")
+//	}
+//
+//	pid, _ := strconv.Atoi(pidStr)
+//	if !IsProcessExist(context.Background(), "n1", pid) {
+//		t.Fatalf("pid %d must exist", pid)
+//	}
+//
+//	if !IsDaemonRunning(context.Background(), "n1", cmd, pidFile) {
+//		t.Fatal("daemon must be running")
+//	}
+//
+//	err = StopDaemon(context.Background(), "n1", cmd, pidFile)
+//	if err != nil {
+//		t.Fatalf("stop daemon failed %v", err)
+//	}
+//
+//	time.Sleep(time.Second)
+//
+//	if IsProcessExist(context.Background(), "n1", pid) {
+//		t.Fatalf("pid %d must not exist", pid)
+//	}
+//
+//	if IsFileExist(context.Background(), "n1", pidFile) {
+//		t.Fatalf("pid file must not exist")
+//	}
+//
+//	if IsDaemonRunning(context.Background(), "n1", cmd, pidFile) {
+//		t.Fatal("daemon must be not running")
+//	}
+//}
+//
+//func TestWriteFile(t *testing.T) {
+//	name := "/tmp/chaos/test.log"
+//	if err := WriteFile(context.Background(), "n1", name, "\"[section]\na=b\""); err != nil {
+//		t.Fatalf("write file failed %v", err)
+//	}
+//
+//	data, err := ssh.CombinedOutput(context.Background(), "n1", "cat", name)
+//	if err != nil {
+//		t.Fatalf("read file failed %v", err)
+//	}
+//
+//	seps := strings.Split(strings.TrimSpace(string(data)), "\n")
+//	if len(seps) != 2 {
+//		t.Fatalf("invalid read data %s", data)
+//	}
+//}
