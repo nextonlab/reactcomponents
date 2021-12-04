@@ -1,17 +1,17 @@
-module github.com/pingcap/tipocket/testcase/bank2
+
+module github.com/pingcap/tipocket/testcase/cross-region
 
 go 1.16
 
 require (
-	github.com/go-sql-driver/mysql v1.5.0
-	github.com/juju/errors v0.0.0-20190930114154-d42613fe1ab9
-	github.com/ngaut/log v0.0.0-20180314031856-b8e36e7ba5ac
+	github.com/go-sql-driver/mysql v1.6.0
+	github.com/pingcap/errors v0.11.5-0.20201126102027-b0a155152ca3
+	github.com/pingcap/log v0.0.0-20210625125904-98ed8e2eb1c7
 	github.com/pingcap/tipocket v1.0.0
-	github.com/pingcap/tipocket/logsearch v1.0.0
-	github.com/rogpeppe/fastuuid v1.2.0
+	github.com/tikv/pd v1.1.0-beta.0.20211104095303-69c86d05d379
+	go.uber.org/zap v1.16.0
+	golang.org/x/tools v0.1.7 // indirect
 )
-
-replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
 
 replace github.com/uber-go/atomic => go.uber.org/atomic v1.5.0
 
@@ -39,10 +39,8 @@ replace (
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.17.0
 )
 
-replace github.com/Azure/go-autorest => github.com/Azure/go-autorest v12.2.0+incompatible
-
-replace golang.org/x/net v0.0.0-20190813000000-74dc4d7220e7 => golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
-
-replace github.com/pingcap/tipocket => ../../.
-
-replace github.com/pingcap/tipocket/logsearch => ../../logsearch
+replace (
+	github.com/Azure/go-autorest => github.com/Azure/go-autorest v12.2.0+incompatible
+	github.com/pingcap/tipocket => ../../.
+	golang.org/x/net v0.0.0-20190813000000-74dc4d7220e7 => golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
+)
