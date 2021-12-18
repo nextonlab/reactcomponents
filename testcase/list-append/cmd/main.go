@@ -42,3 +42,8 @@ func main() {
 			Parser:  listappend.AppendParser{},
 		},
 		ClusterDefs: test_infra.NewDefaultCluster(fixture.Context.Namespace, fixture.Context.ClusterName,
+			fixture.Context.TiDBClusterConfig),
+		LogsClient: logs.NewDiagnosticLogClient(),
+	}
+	suit.Run(context.Background())
+}
