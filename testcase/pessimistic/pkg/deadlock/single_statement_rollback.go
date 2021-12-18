@@ -65,4 +65,86 @@ func (s *singleStatementRollbackCase) openDB() error {
 	return nil
 }
 
-func (s *singleStatementRollbackCase) createTa
+func (s *singleStatementRollbackCase) createTables() error {
+	for i := 0; i < s.tableNum; i++ {
+		util.MustExec(s.db, fmt.Sprintf("DROP TABLE IF EXISTS ssr%d", i))
+		util.MustExec(s.db,
+			fmt.Sprintf("CREATE TABLE ssr%d(id INT PRIMARY KEY, v BIGINT)", i))
+		util.MustExec(s.db, fmt.Sprintf("INSERT INTO ssr%d VALUES (0, 0)", i))
+	}
+
+	// UPDATE ssr0, ssr1, .. SET ssr0.v = ssr0.v + 1, ssr1.v = ssr1.v + 1, .. where ssr0.id = 0, ssr1.id = 0, ..
+	b := bytes.NewBufferString("UPDATE ")
+	for i := 0; i < s.tableNum; i++ {
+		b.WriteString(fmt.Sprintf("ssr%d", i))
+		if i != s.tableNum-1 {
+			b.WriteString(", ")
+		}
+	}
+	b.WriteString(" SET ")
+	for i := 0; i < s.tableNum; i++ {
+		b.WriteString(fmt.Sprintf("ssr%d.v = ssr%d.v + 1", i, i))
+		if i != s.tableNum-1 {
+			b.WriteString(", ")
+		}
+	}
+	b.WriteString(" WHERE ")
+	for i := 0; i < s.tableNum; i++ {
+		b.WriteString(fmt.Sprintf("ssr%d.id = 0", i))
+		if i != s.tableNum-1 {
+			b.WriteString(" or ")
+		}
+	}
+	s.query = b.String()
+	return nil
+}
+
+func (s *singleStatementRollbackCase) execute(ctx context.Context) error {
+	ticker := time.NewTicker(s.interval)
+	for {
+		select {
+		case <-ctx.Done():
+			for _, ch := range s.chs {
+				close(ch)
+			}
+			return nil
+
+		case <-ticker.C:
+			s.singleStatementRollback()
+		}
+	}
+}
+
+func (s *singleStatementRollbackCase) singleStatementRollback() {
+	if len(s.chs) == 0 {
+		for i := 0; i < s.tableNum; i++ {
+			ch := make(chan struct{})
+			go func() {
+				for {
+					_, ok := <-ch
+					if !ok {
+						return
+					}
+					mustExec := func(ctx context.Context, conn *sql.Conn, query string) {
+						if _, err := conn.ExecContext(ctx, query); err != nil {
+							log.Fatalf("[single statement rollback] Execute \"%v\" failed: %v", query, err)
+						}
+					}
+					ctx := context.Background()
+					conn, err := s.db.Conn(ctx)
+					if err != nil {
+						log.Fatalf("[single statement rollback] Create connection failed: %v", err)
+					}
+					mustExec(ctx, conn, "BEGIN PESSIMISTIC")
+					mustExec(ctx, conn, s.query)
+					mustExec(ctx, conn, "COMMIT")
+					conn.Close()
+				}
+			}()
+			s.chs = append(s.chs, ch)
+		}
+	}
+	for _, ch := range s.chs {
+		ch <- struct{}{}
+	}
+}
