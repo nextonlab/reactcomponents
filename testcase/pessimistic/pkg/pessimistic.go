@@ -401,4 +401,20 @@ func (c *Client) checkLoop(db *sql.DB) {
 		<-ticker.C
 		checkCount(conn, allSumStmt, 0)
 		for i := 0; i < c.cfg.TableNum; i++ {
-			checkCou
+			checkCount(conn, fmt.Sprintf("select count(*) from %s%d use index (i)", tableNamePrefix, i), int64(c.cfg.TableSize))
+			checkCount(conn, fmt.Sprintf("select count(*) from %s%d use index (u)", tableNamePrefix, i), int64(c.cfg.TableSize))
+		}
+	}
+}
+
+func checkCount(conn *sql.Conn, sql string, expected int64) {
+	row := conn.QueryRowContext(context.Background(), sql)
+	var c int64
+	if err := row.Scan(&c); err != nil {
+		log.Info("check", sql, err)
+	} else {
+		if c != expected {
+			panic(fmt.Sprintf("data inconsistency, %s is %d, expect %d", sql, c, expected))
+		}
+	}
+}
