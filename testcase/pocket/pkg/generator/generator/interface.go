@@ -66,3 +66,6 @@ type DDLOptions struct {
 	OnlineDDL bool
 	// if OnlineDDL is set to false
 	// Tables contains all online tables which should not be modified with DDL
+	// pocket will collect them from other generator instances
+	Tables []string
+}
