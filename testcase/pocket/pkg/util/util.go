@@ -95,4 +95,5 @@ func CurrentTimeStrAsLog() string {
 
 // FormatTimeStrAsLog format given time as as "[2006/01/02 15:06:02.886 +08:00]"
 func FormatTimeStrAsLog(t time.Time) string {
-	return t.Format("2006/01
+	return t.Format("2006/01/02 15:04:05.000 -07:00")
+}
