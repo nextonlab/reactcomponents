@@ -34,4 +34,12 @@ replace (
 	k8s.io/kubectl => k8s.io/kubectl v0.17.0
 	k8s.io/kubelet => k8s.io/kubelet v0.17.0
 	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.17.0
-	k8s.io/metrics => k8s.io/metrics v0
+	k8s.io/metrics => k8s.io/metrics v0.17.0
+	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.17.0
+)
+
+replace github.com/Azure/go-autorest => github.com/Azure/go-autorest v12.2.0+incompatible
+
+replace golang.org/x/net v0.0.0-20190813000000-74dc4d7220e7 => golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
+
+replace github.com/pingcap/tipocket => ../../.
