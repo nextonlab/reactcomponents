@@ -1,13 +1,22 @@
-module github.com/pingcap/tipocket/testcase/stale-read
+
+module github.com/pingcap/tipocket/testcase/titan
 
 go 1.16
 
 require (
+	github.com/go-sql-driver/mysql v1.5.0
 	github.com/ngaut/log v0.0.0-20180314031856-b8e36e7ba5ac
+	github.com/pingcap/pd v2.1.17+incompatible
 	github.com/pingcap/tipocket v1.0.0
+	github.com/tikv/client-go v0.0.0-20200110101306-a3ebdb020c83
 )
 
 replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
+
+// we use pingcap/pd and pingcap/pd/v4 at the same time, which will cause a panic because pd register prometheus metrics two times.
+replace github.com/pingcap/pd => github.com/mahjonp/pd v1.1.0-beta.0.20200408110858-9c088a87390c
+
+replace github.com/pingcap/tidb => github.com/pingcap/tidb v0.0.0-20200317142013-5268094afe05
 
 replace github.com/uber-go/atomic => go.uber.org/atomic v1.5.0
 
@@ -40,5 +49,3 @@ replace github.com/Azure/go-autorest => github.com/Azure/go-autorest v12.2.0+inc
 replace golang.org/x/net v0.0.0-20190813000000-74dc4d7220e7 => golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
 
 replace github.com/pingcap/tipocket => ../../.
-
-replace github.com/pingcap/tipocket/logsearch => ../../logsearch

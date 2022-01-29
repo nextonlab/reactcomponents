@@ -1,10 +1,12 @@
-module github.com/pingcap/tipocket/testcase/stale-read
+
+module github.com/pingcap/tipocket/testcase/ttl
 
 go 1.16
 
 require (
 	github.com/ngaut/log v0.0.0-20180314031856-b8e36e7ba5ac
 	github.com/pingcap/tipocket v1.0.0
+	github.com/tikv/client-go v0.0.0-20210220073820-d52d5aff79c9
 )
 
 replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
@@ -41,4 +43,4 @@ replace golang.org/x/net v0.0.0-20190813000000-74dc4d7220e7 => golang.org/x/net 
 
 replace github.com/pingcap/tipocket => ../../.
 
-replace github.com/pingcap/tipocket/logsearch => ../../logsearch
+replace github.com/coreos/etcd => github.com/coreos/etcd v3.3.15+incompatible
