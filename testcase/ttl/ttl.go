@@ -273,4 +273,78 @@ func (c *ttlClient) expectKeyTTL(ctx context.Context, keys [][]byte, TTL, expect
 	for _, key := range keys {
 		ttl, err := c.cli.GetKeyTTL(ctx, key)
 		if err != nil {
-			c.waitAndFatal(fmt.Sprintf("[%s] RawKV TTL GetKeyTTL error %s, key %v, TTL %v seconds",
+			c.waitAndFatal(fmt.Sprintf("[%s] RawKV TTL GetKeyTTL error %s, key %v, TTL %v seconds", c, err, key, TTL))
+		}
+		if !eqInTolerance(*ttl, expectTTL) {
+			c.waitAndFatal(fmt.Sprintf("[%s] RawKV TTL time error, get ttl %v, expect ttl %v", c, *ttl, expectTTL))
+		}
+	}
+	log.Infof("[%s] GetKeyTTL() in key range %v to %v succeed, TTL %v seconds", c, keys[0], keys[len(keys)-1], TTL)
+}
+
+// Any error will cause case to fail.
+func (c *ttlClient) expectScanSucceed(ctx context.Context, keys, values [][]byte, limit int, TTL uint64) {
+	startKey := keys[0]
+	endKey := keys[len(keys)-1]
+	scanKeys, scanValues, err := c.cli.Scan(
+		ctx,
+		startKey,
+		endKey,
+		limit,
+	)
+	if err != nil {
+		c.waitAndFatal(fmt.Sprintf("[%s] RawKV TTL scan error %s, startkey %v, endkey %v, TTL %v seconds", c, err, startKey, endKey, TTL))
+	}
+	for i, key := range scanKeys {
+		if !bytes.Equal(values[i], scanValues[i]) {
+			c.waitAndFatal(fmt.Sprintf("[%s] RawKV TTL scan value error %s, on key %v, expect %v, get %v, TTL %v seconds", c, err, key, values[i], scanValues[i], TTL))
+		}
+	}
+	log.Infof("[%s] GetKeyTTL() in key range %v to %v succeed, TTL %v seconds", c, keys[0], keys[len(keys)-1], TTL)
+}
+
+func (c *ttlClient) waitAndFatal(errmsg string) {
+	log.Errorf(errmsg)
+	atomic.StoreInt32(&c.stopped, 1)
+	c.wg.Wait()
+	log.Fatalf(errmsg)
+}
+
+func (c *ttlClient) keyFromID(prefix []byte, dataID int) []byte {
+	key := prefix // Copy prefix
+	key = append(key, c.intToBigEndianByte(dataID)...)
+	return key
+}
+
+// intToBigEndianByte returns a byte array, persist the order of i.
+func (c *ttlClient) intToBigEndianByte(i int) []byte {
+	ans := make([]byte, 8)
+	iU64 := uint64(i)
+	binary.BigEndian.PutUint64(ans, iU64)
+	return ans
+}
+
+func (c *ttlClient) String() string {
+	return "ttl"
+}
+
+// equalInToleranceCreator create a function tests if abs(lhs - rhs) <= tolerance.
+func equalInToleranceCreator(tolerance uint64) func(uint64, uint64) bool {
+	return func(lhs, rhs uint64) bool {
+		gap := lhs - rhs
+		if gap < 0 {
+			gap = -gap
+		}
+		if gap <= tolerance {
+			return true
+		}
+		return false
+	}
+}
+
+// Create ...
+func (c ClientCreator) Create(_ cluster.ClientNode) core.Client {
+	return &ttlClient{
+		cfg: c.Cfg,
+	}
+}
