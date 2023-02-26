@@ -332,4 +332,209 @@ func (c *backupClient) transferOnce() error {
 	insertTxnLeg := `INSERT INTO transaction_leg (account_id, amount, running_balance, txn_id, remark) VALUES (?, ?, ?, ?, ?)`
 	updateAcct := `UPDATE accounts SET balance = ? WHERE id = ?`
 	txnID := atomic.AddInt32(&c.txnID, 1)
-	if _, er
+	if _, err := tx.Exec(insertTxn, txnID, fmt.Sprintf("txn %d", txnID), randomString(36)); err != nil {
+		_ = tx.Rollback()
+		return errors.Trace(err)
+	}
+	if _, err = tx.Exec(insertTxnLeg, from, -amount, fromBalance-amount, txnID, randomString(36)); err != nil {
+		_ = tx.Rollback()
+		return errors.Trace(err)
+	}
+	if _, err = tx.Exec(insertTxnLeg, to, amount, toBalance+amount, txnID, randomString(36)); err != nil {
+		_ = tx.Rollback()
+		return errors.Trace(err)
+	}
+	if _, err = tx.Exec(updateAcct, toBalance+amount, to); err != nil {
+		_ = tx.Rollback()
+		return errors.Trace(err)
+	}
+	if _, err = tx.Exec(updateAcct, fromBalance-amount, from); err != nil {
+		_ = tx.Rollback()
+		return errors.Trace(err)
+	}
+
+	return tx.Commit()
+}
+
+func (c *backupClient) startRestore(restoringLock *sync.RWMutex) {
+	for {
+		time.Sleep(c.config.RestoreInterval)
+		// according to the document, no other operations are allowed to access the database when restoring
+		log.Infof("[%s] Try to restore once, waiting for other task finish...", c)
+		restoringLock.Lock()
+		log.Infof("[%s] Other task finished", c)
+		// now no other workers are operating the database, let's do the check work
+		// first backup once, so we should build the current state of this database with all backups
+		log.Infof("[%s] Backup once before restore", c)
+		err := util.RunWithRetry(context.Background(), c.config.RetryLimit, 5*time.Second, func() error {
+			err := c.backup()
+			return err
+		})
+		if err != nil {
+			log.Fatalf("[%s] failed to backup after try for %d times before restore, err: %v", c, c.config.RetryLimit, err)
+		}
+		oldNextRestoreIndex := c.nextRestoreIndex
+		// and then do the saveState, clearDB, restore and check work
+		balances := c.saveState()
+		c.clearDB()
+		c.restore()
+		c.checkRestoreSuccess(balances)
+		log.Infof("[%s] Restore from backup %d-%d pass the validate", c, oldNextRestoreIndex, c.nextRestoreIndex-1)
+		// the old backup files are invalidated after restore
+		// so backup once after restore
+		log.Infof("[%s] Backup once after restore", c)
+		err = util.RunWithRetry(context.Background(), c.config.RetryLimit, 5*time.Second, func() error {
+			err := c.backup()
+			return err
+		})
+		if err != nil {
+			log.Fatalf("[%s] failed to backup after try for %d times after restore, err: %v", c, c.config.RetryLimit, err)
+		}
+		restoringLock.Unlock()
+	}
+}
+
+func (c *backupClient) startBackup(restoringLock *sync.RWMutex) {
+	for {
+		time.Sleep(c.config.BackupInterval)
+		// prevent restore when there is a living backup work
+		restoringLock.RLock()
+		err := util.RunWithRetry(context.Background(), c.config.RetryLimit, 5*time.Second, func() error {
+			err := c.backup()
+			return err
+		})
+		if err != nil {
+			log.Fatalf("[%s] failed to backup after try for %d times, err: %v", c, c.config.RetryLimit, err)
+		}
+		restoringLock.RUnlock()
+	}
+}
+
+func (c *backupClient) startTransactions(restoringLock *sync.RWMutex) {
+	for i := 0; i < c.config.Concurrency; i++ {
+		go func() {
+			for {
+				// prevent restore when there is a living transfer
+				restoringLock.RLock()
+				if err := c.transferOnce(); err != nil {
+					log.Errorf("[%s] move money err %v", c, err)
+					return
+				}
+				restoringLock.RUnlock()
+			}
+		}()
+	}
+}
+
+func (c *backupClient) logBalances(path string, balances []uint64) error {
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	for _, balance := range balances {
+		_, err := f.WriteString(fmt.Sprintf("%d\n", balance))
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (c *backupClient) checkRestoreSuccess(expectedBalances []uint64) {
+	// query the restored result and check whether it matched with the origin result
+	// if incremental backup works as expected, the result should be just equal
+	rows, err := c.db.Query(`SELECT balance FROM accounts ORDER BY id;`)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var balances []uint64
+	for rows.Next() {
+		var balance uint64
+		if err := rows.Scan(&balance); err != nil {
+			log.Fatal(err)
+		}
+		balances = append(balances, balance)
+	}
+	matched := len(expectedBalances) == len(balances)
+	for i, balance := range expectedBalances {
+		if !matched {
+			break
+		}
+		if balance != balances[i] {
+			matched = false
+		}
+	}
+	if !matched {
+		if err = c.logBalances("./before-recover.log", expectedBalances); err != nil {
+			log.Fatal(err)
+		}
+		if err = c.logBalances("./after-recover.log", balances); err != nil {
+			log.Fatal(err)
+		}
+		log.Fatalf("[%s] Balance not match after recover! Check before-recover.log and after-recover.log for the difference", c)
+	}
+}
+
+func (c *backupClient) clearDB() {
+	log.Infof("[%s] Clear the database before restore...", c)
+	// then drop the tables, I did not find a better way to clear the storage
+	err := util.RunWithRetry(context.Background(), c.config.RetryLimit, 5*time.Second, func() error {
+		_, err := c.db.Exec(`drop table accounts;`)
+		return err
+	})
+	if err != nil {
+		log.Fatalf("[%s] drop table err %v", c, err)
+	}
+	err = util.RunWithRetry(context.Background(), c.config.RetryLimit, 5*time.Second, func() error {
+		_, err := c.db.Exec(`drop table transaction;`)
+		return err
+	})
+	if err != nil {
+		log.Fatalf("[%s] drop table err %v", c, err)
+	}
+	err = util.RunWithRetry(context.Background(), c.config.RetryLimit, 5*time.Second, func() error {
+		_, err := c.db.Exec(`drop table transaction_leg;`)
+		return err
+	})
+	if err != nil {
+		log.Fatalf("[%s] drop table err %v", c, err)
+	}
+	log.Infof("[%s] Database clean now", c)
+}
+
+func (c *backupClient) saveState() []uint64 {
+	// currently we just check all balances
+	// todo: check transaction and transaction_leg, though these tables might be large we can check all fields' checksum
+	var balances []uint64
+	rows, err := c.db.Query(`SELECT balance FROM accounts ORDER BY id;`)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var balance uint64
+	for rows.Next() {
+		if err := rows.Scan(&balance); err != nil {
+			log.Fatal(err)
+		}
+		balances = append(balances, balance)
+	}
+	return balances
+}
+
+func (c *backupClient) String() string {
+	return "backup"
+}
+
+// ClientCreator ...
+type ClientCreator struct {
+	Cfg      Config
+	Features Features
+}
+
+// Create a Client
+func (c ClientCreator) Create(_ cluster.ClientNode) core.Client {
+	return &backupClient{
+		features: c.Features,
+		config:   c.Cfg,
+	}
+}
